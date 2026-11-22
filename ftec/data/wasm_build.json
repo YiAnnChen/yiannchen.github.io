@@ -1,0 +1,12 @@
+{
+  "built": "2026-11-22T17:33:32.361Z",
+  "toolchain": "@yowasp/clang (LLVM/Clang for wasm32)",
+  "command": "clang --target=wasm32 -O2 -nostdlib -ffreestanding -Iinc -Wno-everything -Wl,--no-entry -Wl,--export-memory -o ftec.wasm ftec_wasm.c",
+  "inputs": {
+    "scalar.c": "40dc06b200111cc6aea1e815fe6fbaffa8d304c120b6982c774f980a5f44ec41",
+    "legacy.c": "5dae99785d0a2eeaafd5d72efd138f1acfde8621d78daf566ecc419c44b738d9",
+    "ftec_wasm.c": "c77ec3eeb2efcadba5ccd35ab7c0be9a6f74690eaf2c5cb76e354f96d9323d79"
+  },
+  "wasmSHA256": "501ecb3e3f7ea21bb741d2cab8998ee9ca258f1c76d090df2fd322bdd228eb76",
+  "wasmBytes": 35951
+}

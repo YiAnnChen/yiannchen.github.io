@@ -1,0 +1,1824 @@
+{
+  "schema": 2,
+  "modelSHA256": "40dc06b200111cc6aea1e815fe6fbaffa8d304c120b6982c774f980a5f44ec41",
+  "correctionLine": "check(ec==correction(en,eb,eh0,eh1,eh2,eh3,eh4,eh5,eh6,eh7));",
+  "files": {
+    "residual/initial.c": "8b9876111ae72ea4cfacf85d38fe2a1268497242cad32e2064eb1f15732485b7",
+    "residual/r1_k0_op0.c": "c8b6049f4753c3c0408fbd7d939919c5b346055aacbfe4c98984507f2a34bc55",
+    "residual/r1_k0_op1.c": "d6ce5afd38123c88f44755fffebf834ff4cdacbb9a6bd46136917896b8636fce",
+    "residual/r1_k0_op2.c": "b6397d6c63df873a3e4395a05cb535c025cce4c0c12c465c002998da47b44393",
+    "residual/r1_k0_op3.c": "162308a7f796bc10a637b578c9cb2e33c189e2eb85cc049ce2fb4ff215557e26",
+    "residual/r1_k0_op4.c": "cd94ad676394828d19bed0c9e50cfd0d7738d16d2d4a565b0da9716451d4b1b1",
+    "residual/r1_k0_op5.c": "fe9424d5a838c3e2d0c907a2a4864c3b698f050f4f3648725d98ef7b61f2a8de",
+    "residual/r1_k0_op6.c": "6127ae3a972695b4e10c8af876fce9519c84e892b5a0906d505364dbc5972e9c",
+    "residual/r1_k0_op7.c": "a0e09fdcd6ac57628bfcb2a4bc350b48540fb3810e6f930c4046513c30cd3a4e",
+    "residual/r1_k0_op8.c": "be3584958755936a7d22643f923b82ae489e47bb62eb6581d1ac034665a6a66f",
+    "residual/r1_k0_op9.c": "557ef88d2d69f8bd9886cea8bfd61cbe1dadf7fb15fb792ed6d0cb067609b5d4",
+    "residual/r1_k1_op0.c": "cf71aa03a6fd9dd101be8071d17aba462319b3d3141dfeb7d79457cd7ec40931",
+    "residual/r1_k1_op1.c": "78decde62f6a6aba25eea02d0cf7ef8f867b0c439b5949aa7eb971993f894113",
+    "residual/r1_k1_op2.c": "41c187c08807c7cacc2401a3cded7e6a597b21da12201246a4b27e8c6bee1cb3",
+    "residual/r1_k1_op3.c": "9ea9cf905ee17de390b0e29be68bc05d6a08d24978a7be1869a996297c47fa0f",
+    "residual/r1_k1_op4.c": "84ff943d6acd898556902e82b2a1c9de5c05e0ca10e93772905cafc9ed86adce",
+    "residual/r1_k1_op5.c": "e3c39cf84782fa3e9067d6cd95d1d31f78a6751fc4fa3f9087e730936a7f4647",
+    "residual/r1_k1_op6.c": "44970b21caabaf3e701df955ca3b85faf272f82ead6319c81fa4cced9a0d4e6b",
+    "residual/r1_k1_op7.c": "957bc6226ac4ccf622eef312797455fbc132a263af1a95846760211ec98c96ec",
+    "residual/r1_k1_op8.c": "e830aaa968a851c1d8876542154d46a0134016a78e8672ec4760b4c5375735aa",
+    "residual/r1_k1_op9.c": "afb57abf5a00c79a5415b1e4fb45c665de06c2065153217c2115c86a875c7947",
+    "residual/r1_k2_op0.c": "904d663c3ba857b185e19899afa2eaba15dee61d49140be1f98088ee78dc3d28",
+    "residual/r1_k2_op1.c": "da01c1bf8fe6a5da91f398cfcebbaeede62f3a72135a223e0e52676995f2f01c",
+    "residual/r1_k2_op2.c": "c4d86c53d915a4ad32cdb514fc42d597a56cf15156fe81e5e3d60480b169427b",
+    "residual/r1_k2_op3.c": "17d53aa269c1ab651ef3c62bd9d65e28a770ec6eae09a8edd03d487956390cf9",
+    "residual/r1_k2_op4.c": "4db6aa6e8056e130540368deff9e412720abafafced105e054f179efb1df4627",
+    "residual/r1_k2_op5.c": "48f5ce81ab19363cfe526e0c1df65452fe0f78627c2971a736d7b1cd20a8073b",
+    "residual/r1_k2_op6.c": "a86eebce7856c26128981cd481775b976b47327672fde3f6eb1c810e495b3179",
+    "residual/r1_k2_op7.c": "e25779ff78d96ecc7285e2287bd661fd1d77d79a471bc336d44cc21b6c8d0901",
+    "residual/r1_k2_op8.c": "4e79be0b7820c737902be654e2dbc1d103a0d9ea8f8312fcee9f70f3944c958d",
+    "residual/r1_k2_op9.c": "e5b6f9e5e33b5f6aa159c47f88b6285eee96d969e04388ba6db7b3c4fe906952",
+    "residual/r1_k3_op0.c": "dfed472415cce7c2a8fa9f36656b91a356039d7e4a223e679daa9dd30ca6f2b3",
+    "residual/r1_k3_op1.c": "3c6bb068a3d36169402b615f45865d9e90b1bd4f53fe39e195869df8613febb9",
+    "residual/r1_k3_op2.c": "ead583bd9c1efc2692500b39e8098a757861c6046c94e06ee402d5ab64fdb5d8",
+    "residual/r1_k3_op3.c": "fdbd3049af02436e46b5d609fb6c99ba111d9a2a9602f13834a8247ad74ed78a",
+    "residual/r1_k3_op4.c": "7951576f3efbfac61754269edbc8bdb7eccddf285d5b67289d517d5fe4c8c1a4",
+    "residual/r1_k3_op5.c": "2988a4a61b43c773a6abf06ae1c81f35dbaeee21172f41b2ae64ccac8a000977",
+    "residual/r1_k3_op6.c": "bd44b8910a3be3d45987a84abc795f9d4528cfa15a7d17a3e4665fb69d8bbcdd",
+    "residual/r1_k3_op7.c": "0c104864361c038d6c0ee2018a9aba717f9e1c1d732fa9a326867afca02769f8",
+    "residual/r1_k3_op8.c": "f88a2a876bd088140cf02cce9c1f73c0ecd45265d84f3a8e9544ee24f4648ac9",
+    "residual/r1_k3_op9.c": "d248f1d1af7f89332ed8f44ee9d4ab0ea0b488877e2419e03f3478b09b23797a",
+    "residual/r1_k4_op0.c": "f7267a9e62fbef012a0780d7b966c252f6330f95e64aa68958ed8222ee15719f",
+    "residual/r1_k4_op1.c": "1be3b2561c965a6c58c513f2e36b4178336bb32f74a5ec658e8654f0d02287f6",
+    "residual/r1_k4_op2.c": "5fe17ca4a42834cd7629c6650a2a023a3a8e99c40bb87ef0ff6aef82e8da4ee7",
+    "residual/r1_k4_op3.c": "ce3b513538f89f306d49cf7f2bb33ae5b1a89adf43a1e995fed12f897e0afaef",
+    "residual/r1_k4_op4.c": "b9654910c13fadd2bcff569fffdbaefe1be667450958b3c44aa56fa77adf4c12",
+    "residual/r1_k4_op5.c": "a6b7835c68467e7304697b1ae74621c2534d281045945d28308fa155db8456dd",
+    "residual/r1_k4_op6.c": "07a92a4de278ecc59b06c4c2d43f01fd8de0fb4cec62f96cb0bfce7c5d5e3bb4",
+    "residual/r1_k4_op7.c": "b499c5b800787a75191be1dac1fa859b9baca657c5230c8e56ee571897d59d2b",
+    "residual/r1_k4_op8.c": "7477a9a1c76e633376ae7a75cd0f4876ebcd0354646f7c97a4c33ea3e4f9cbed",
+    "residual/r1_k4_op9.c": "a4a5ee81f5f246829b0436609fd984ab3b3f5ed2dc58d0461468282cbe8bf95b",
+    "residual/r1_k5_op0.c": "f5c239938adf6a841b0048262bf50274ee57d076f94de4acee3f48c546f8e478",
+    "residual/r1_k5_op1.c": "106fbe42b703c4cccdeb6c26c11fcc1f3c4171f0591b312e92093f0c11dc5e5f",
+    "residual/r1_k5_op2.c": "ba7f477d661fcd662b485406f49c65f9dfedf6aacfbc2a279a30de660bad8c74",
+    "residual/r1_k5_op3.c": "15cf8b2ef5e7ac9ac13092e12e8e006d6253a5bc74845e4bac9df9c66be7b0b2",
+    "residual/r1_k5_op4.c": "5e2502353fe0efd7bf678561dd1d71f54608101bcc694a232a0eedec9ed8458a",
+    "residual/r1_k5_op5.c": "1f7783e265ed7cc2fce7c4e41a05c340b9f1245c9fcbabf41e968cf9f52ec61c",
+    "residual/r1_k5_op6.c": "824bd83d5a3134d85e562c83c7f8a3224af2af46313232e09507b757c69050ce",
+    "residual/r1_k5_op7.c": "f51eddaa39bb16190866f365a08c07baca29a31896705a2fa41c6d21b23e7bda",
+    "residual/r1_k5_op8.c": "065d463ba47596447b3b6027e06f337eb93fc68f8d460de91e5affabdb113dcf",
+    "residual/r1_k5_op9.c": "63e66dc3951b17922e9813aeb55c551c2f0180ec176e15a25b999260e8cfa08f",
+    "residual/r2_k0_op0.c": "fb1f7d96e5b392a0afd9247a050e2c57f3ea69ca6b0f410bb9cb72271f81c5d8",
+    "residual/r2_k0_op1.c": "71657e03e521871b81a2611b91435064acdbfda54396e4f80e084981b633bd82",
+    "residual/r2_k0_op2.c": "15c1d8b2be120d2a16ecc69a5058fbae07c5b526f7e16eb5bc00ce1225dd4a95",
+    "residual/r2_k0_op3.c": "9fdf38db127b5c6a586b8d4e64cf0474ab28a817a7bc3594afa3c928f3fa4f75",
+    "residual/r2_k0_op4.c": "fb32c40f5bda3337dc920fa27b2835df53449da15e226dc0d060523b39446e52",
+    "residual/r2_k0_op5.c": "f52d2be0c21e7c21bfc72395c8eeb9b8d751eaa38e751911b1ba08209f82d2c0",
+    "residual/r2_k0_op6.c": "51dfd43954394eaf5911fcf866835ab57083f24db4c1133074dda751f19c986f",
+    "residual/r2_k0_op7.c": "03ce2fe3a8c5cac99eb18ca0ce775871add65f2f436135d9aefcb240816f7b86",
+    "residual/r2_k0_op8.c": "80e82f803729b2072cdae97def94cfcab05f21cc8914dee497a8c02e45725bb3",
+    "residual/r2_k0_op9.c": "5a8ffe9231ccd7deb881bb38d8b61fd9cf586e9076413afc4bfcd7a379ceb856",
+    "residual/r2_k1_op0.c": "162d9b8d3c37936a1a244a1e724043ae72a251da0a8c4d9d1017f41c27878aa2",
+    "residual/r2_k1_op1.c": "77a94f4a74cfcc9f72e377674928e13711f5b188fecf5c348aa4ae1bec6b31f0",
+    "residual/r2_k1_op2.c": "cf8de15b684a10558334120ab667da0b607fa17415204f3c7dbef739d9a5e107",
+    "residual/r2_k1_op3.c": "0e533458a6dd9ecf7ae62681500447b950087a0bb0ec29197652d0a31cd319ff",
+    "residual/r2_k1_op4.c": "fe029544620b675cf3016d7d1c70e2fedfcc03aef9f8cc1ac9325fe0c9ea4d10",
+    "residual/r2_k1_op5.c": "e5e0ef8ada4336fd1f77ec7b169bcaa7b98d60d1f2f7d1b73d7d77581fddd6b9",
+    "residual/r2_k1_op6.c": "c83798eaf2506e013559741251b9cad727233db888387be1854bf6d0fa2b9784",
+    "residual/r2_k1_op7.c": "f792cf66ab1ab06e3a14471a551e4e78699368b747068de6ef16e8c25cfd71db",
+    "residual/r2_k1_op8.c": "22561cbbc44a12376cb86c16acdc458a4b56f9b50c0b7d6ffdce93e45c20e3bb",
+    "residual/r2_k1_op9.c": "4a0cfe02cd8154b8f9fdd71bd4801e9d0f379fae7ce1b3f510f19d9dc249515b",
+    "residual/r2_k2_op0.c": "e87211ca2779e1a426b8faa409fcda474bbb750adf6e19685663027cf4255643",
+    "residual/r2_k2_op1.c": "00e7766ee3a515be672930611d6f034c18afd034e376621716fef4051ad670e6",
+    "residual/r2_k2_op2.c": "009782e0c438f596e54b0b2c4da770dd5884a0f7a069a42e3018fe35ec07708f",
+    "residual/r2_k2_op3.c": "99f5237264d03fd4b603be9b15fce982a3c4e5b9aa1c813b6d1793c2a1233140",
+    "residual/r2_k2_op4.c": "9e0231b14cb7f4c59fedaee99de75575318ed23ba89a72c361ac615cf029e177",
+    "residual/r2_k2_op5.c": "95912a133c02959bb5fe5b0df391475f21a0e89cbd987f808b2b86a722414a15",
+    "residual/r2_k2_op6.c": "83d5b7af4ca128935eea596229d4d04bdedc46bc7f7356ee891a419a36637980",
+    "residual/r2_k2_op7.c": "ed208ecda8faa59c45a1ee5251ae36741026d27f7fd739a8f147eac764cd71ad",
+    "residual/r2_k2_op8.c": "9a503994190eb382d0022aaeabbc7a96497b8c7151c3c0dfc9181d0b133c0ca9",
+    "residual/r2_k2_op9.c": "d73e9285822de6349d4c5bbe1e60bd10bbf908219ac15e455234d716523dd9ec",
+    "residual/r2_k3_op0.c": "5aa85be8518f11d1fcea6d0374913139920277d8ec5b1cba82447633f9629511",
+    "residual/r2_k3_op1.c": "5ff141eb6aa6b1986e7a0c449c3d3217b6f989699f57fab1f3147756883a62f3",
+    "residual/r2_k3_op2.c": "83459369faf9610131e54a578633f0b3ef0a67faa9ccc5bc3bf6765dcf94f257",
+    "residual/r2_k3_op3.c": "e1f8d2ec08ea7fbbb0137a0d9abbb19b4b253b2a7fe99e35d49df7548b39e0d8",
+    "residual/r2_k3_op4.c": "ad225b286550d8577ff0c416924e1bfaf748001c56b74a89bd087355b914fcd1",
+    "residual/r2_k3_op5.c": "94c8907dbef790cb4f61bdd4faeb4e29754ada0d29d4efd007de2baefbc80a73",
+    "residual/r2_k3_op6.c": "7f4ae0f67d6fb59a1dfc742795488bf3aaea66310a54eb41f3985ef401790eda",
+    "residual/r2_k3_op7.c": "1cc26afec49a7b2b53a458eeb4235ccf3106b2653897eb2469b906fe9ebf1051",
+    "residual/r2_k3_op8.c": "1d4a79a6e9f4dff9ec22a9b85bf75d29a5b28838891e13f6ee346cd7b37eb457",
+    "residual/r2_k3_op9.c": "3d447cdcc19e18ae946cb8f7a4d8de72141670060da1226b66f3991efe08d265",
+    "residual/r2_k4_op0.c": "89963bd3d29c36e1b2566608a8139063ceb30b9b05ddc57cac5c809913c9defe",
+    "residual/r2_k4_op1.c": "eb969a659041928796e0407bfec250212dfce46a5ad1bd137037b1b03e7ed066",
+    "residual/r2_k4_op2.c": "15d9d362858d3b808be2de9ee1bcd597649970a7b29ea8c753e0a35f53d9af40",
+    "residual/r2_k4_op3.c": "1157770f6ba7dfdcc8130c5ac9d30a4190922763981648556cb22a107988148f",
+    "residual/r2_k4_op4.c": "d93ad5c1fcb2c2fd4d03b31eaad413ee916763e8d8f99ff4ea6f267be4df984b",
+    "residual/r2_k4_op5.c": "eaf38b0d414a5449904e97d3d782e43ec67c2f7f934be4300125819264512f26",
+    "residual/r2_k4_op6.c": "da099ed4a8727c9d9643858fe319542e12411c7cf832e1479331b946f9a9fca0",
+    "residual/r2_k4_op7.c": "5fe7012de590cdbcec2e875a891669f9ae55ab02fbd04c270405614e7fb785c7",
+    "residual/r2_k4_op8.c": "d7e66fb03dd5dd78be13ce07f9f874f557f8bc8e2408b31a89d1decef5be65c7",
+    "residual/r2_k4_op9.c": "3f6cb631899cb87324a6114300417d35f8b725f72f0c3b4fffd949f4fe894937",
+    "residual/r2_k5_op0.c": "adf428728dac279fae16d5d33577a57627f41041756b5568e4376648c3cabc4f",
+    "residual/r2_k5_op1.c": "12e80d99046ea5e2bce568e3b13dce38e27bb4e94040a061678fb510147710c8",
+    "residual/r2_k5_op2.c": "51b8dbde52d91478d6351ae43e365bdb05285f9e8f546bb1d0684c921deb295a",
+    "residual/r2_k5_op3.c": "df843271ce61ae56c0f5d0c6f7c81a1b3b3c0cbfc235acf5956196cb13829bb9",
+    "residual/r2_k5_op4.c": "691f94343d8699a8180064d796849c10097bcb189b624c6a2385cf8062aa7b72",
+    "residual/r2_k5_op5.c": "bdf624b414c3bc285f913dbe18a1ed88091c839910c0a73fd112a517bd54c5e7",
+    "residual/r2_k5_op6.c": "e49c5e5a402a379aef6527ebadc4f544eb08d47c941fd1178fe5bc8ca649798f",
+    "residual/r2_k5_op7.c": "dd0c6a3737efa727eade30197f48f4c18e94dfdb16603c222e0b509b156ee70e",
+    "residual/r2_k5_op8.c": "14964e3e9b44b0b4cb3d43a9b78a2a079f4f2aa57a98c9b9e9d37ae6e67bb364",
+    "residual/r2_k5_op9.c": "037b3b1f2feb746db7530de024a5e94ebcb59540996374135610006a1e103b53",
+    "residual/r3_k0_op0.c": "4f01c7d1123889e9eb72aaa267ea3d52cf9922877642d90159aa755abc73f0c2",
+    "residual/r3_k0_op1.c": "97bc3462d0f95cc499f55bf5ec1fcdca57f0677eb0ca9fddb0c5e7e171837e66",
+    "residual/r3_k0_op2.c": "09bac136413c2e5583f588a18031602662bae671b0dadf92ce3a3383f06765ba",
+    "residual/r3_k0_op3.c": "c58b45be8257324abb3509597a746dd41be2d53f593f8799ae7d3b9f61e1bbd0",
+    "residual/r3_k0_op4.c": "233d862f0f80f1898aca8c2b7303245d199fadb3cff5adc38144afcc87b38988",
+    "residual/r3_k0_op5.c": "cef63b52e53739ed2fa8ee04b9fb0847e89c94e12ee93babd29c2904e5564c01",
+    "residual/r3_k0_op6.c": "e5978258bf1a80727b1347389f64d7ac1a36cbcc6505c51d3aae09c4ffca47bb",
+    "residual/r3_k0_op7.c": "41766f78aa96f7a30ecd115118d2caa390df64efbc77645cd4ccf853d2384d57",
+    "residual/r3_k0_op8.c": "88e6431a4855cc128046328376d4023a6a5468cd7421a802f167ba0205228ca8",
+    "residual/r3_k0_op9.c": "21839d801c66fb6c521ad907b0215eeda0488603591d0bf3903a641361b853a6",
+    "residual/r3_k1_op0.c": "f7ed6a1faad7baafa1ed79cef443f69afd9fa26eb29ad72712d6a6661e1d317e",
+    "residual/r3_k1_op1.c": "fd45bca42a9266e31ff68b80d397170ec82c417ebdf99e45dc880caf2834c7ad",
+    "residual/r3_k1_op2.c": "9b398934a88f2999ea908dbdc44c83e98a81df318c8eeb46cfae7ee3bd9bafe4",
+    "residual/r3_k1_op3.c": "61dad63a23f01d99e571fe5c216426c5acb4d82d566dc6974d6b9ab65b9d01ee",
+    "residual/r3_k1_op4.c": "cc2d1b45476e802a1b7e290d3d47e78e69dd1f041d73b62895c3cb73964f6648",
+    "residual/r3_k1_op5.c": "bad9496f88b04ed80f818e583482cfa1ea2c39b00663cdc4f3fc754d025a748e",
+    "residual/r3_k1_op6.c": "460a98c85d85327a70a05ef8de770ff60a015cc2d7256ede94a2dbefff8ce4e8",
+    "residual/r3_k1_op7.c": "73e6f47b0dbbecf6c35f3a0145b0ffd10aadbad5d146a8ab1c0f43eac7c13aa6",
+    "residual/r3_k1_op8.c": "3e10b6a96f3d796c50033adb110a5c0e894a82f987ffad7344b2ffd054aff68b",
+    "residual/r3_k1_op9.c": "f5a190a18f2aa41c832370f649b0b245a7b2a6edf427ba7f941f81c86cc67ac7",
+    "residual/r3_k2_op0.c": "e07816fca1b3fde00d3808a3af3084e5a5c703de94aa36fe200bbefc8078f536",
+    "residual/r3_k2_op1.c": "e37aebaf952b60970e4c9cc83f1f22c093ccb9689737cea150db05527fe723d5",
+    "residual/r3_k2_op2.c": "a08ec7dd6dedf97476610f5f7295e3fc4cc3fdc1866924b26ce95d9d26219bff",
+    "residual/r3_k2_op3.c": "731cee9c23c91f227a0c5fff43b563c96b01cb286cc49191ce4f8e4de57c424a",
+    "residual/r3_k2_op4.c": "3309275c24104cb71cfd92569e931ae7ef7a0a827b2ded85ca6307663f3d8709",
+    "residual/r3_k2_op5.c": "fc02afe23149b50a4e8683d13785692779a87dadc0070f15f38429fcf7cb0a17",
+    "residual/r3_k2_op6.c": "f084ec82aeb0c62cfa1e2cc630b7e2281cdde57c85f9f9437b3a5a896dec1cbd",
+    "residual/r3_k2_op7.c": "99c251736e77229d9abeb4f7acdda936d2422102dbccc3f0d46fedbb6fb80855",
+    "residual/r3_k2_op8.c": "a35ed04c317f8af270869a30c4923d5a1ec7fd338a0ba5eca05071cff2f4bc4e",
+    "residual/r3_k2_op9.c": "550f38a15620711376336e551aaa52ec3c96531693b09947bff3c422dad1f16e",
+    "residual/r3_k3_op0.c": "176e7c82d225a978b3d1a7b8bb73d9d192776248f32ed51b5cc5d5c4a82243ee",
+    "residual/r3_k3_op1.c": "cc6faadda6b54a7bf2ac434a1f3333327c484867f45c67cee3e482548f508d5e",
+    "residual/r3_k3_op2.c": "1b1860cde361f1a1f24978d90c60e379249bf7452cc578b4792251cd1e9f7199",
+    "residual/r3_k3_op3.c": "49e2af48f71364c8918c3221335a5208db2f6f847925d67cd2af1760977e3709",
+    "residual/r3_k3_op4.c": "bbdfbabd9dd0cef8ece44d0d3b86fca8b9ff21967c53061c8267be284819535c",
+    "residual/r3_k3_op5.c": "c7cf1c90e11eb2236c909691b954e95a3ad5266fe967c5b234b463bcd1cf6eeb",
+    "residual/r3_k3_op6.c": "8ac5a58b290873d073c90f3d7503813cb17c9c648877192c542101ed731f3625",
+    "residual/r3_k3_op7.c": "5a3747044d30e04cfe3a7f4f4930bf2c755707ea9e14688a0d8de7f707dc871e",
+    "residual/r3_k3_op8.c": "b40b681788b64e217f2fa8f92dbbe11b64196b97d0d0de448dd86ad57ace165b",
+    "residual/r3_k3_op9.c": "c1b849ce60013149bf992c3e1a9d971b5457aba549fe95eb4636bfbd226d5afc",
+    "residual/r3_k4_op0.c": "bf1b45556b1c6b4557a289d2f9cd6562e9f79a3ae9eeb7d4bd73defbdc316c3c",
+    "residual/r3_k4_op1.c": "db50afd95b68133a46598f451f2484155c432e20ccd386e52a22a00e76ed508c",
+    "residual/r3_k4_op2.c": "5ca4ded1ad9e24e476202bcb208fdc9563596333f5095c7d7e8ccbdfbf87519c",
+    "residual/r3_k4_op3.c": "0e81eacfe0b92041b9624a852b89aed29486f8a0e581e467b7f63a4e41b76e5d",
+    "residual/r3_k4_op4.c": "62cc0453b2f670a11c5030c7a300b43429e1b26cd1ea45183fb655f20b9f90e7",
+    "residual/r3_k4_op5.c": "7ae8545c09526eaff81b56fedd04b3fa09f223564c06ea9dd68919d9869a8fcc",
+    "residual/r3_k4_op6.c": "e16614b871985080ce0036f20fe423f7310741986f1fc28714c67e2fa28ad376",
+    "residual/r3_k4_op7.c": "577d10061f2af0309d64d3c7a3515242ec548631658080212df87e797f2b14bb",
+    "residual/r3_k4_op8.c": "cf2ccdd90d39c4ae3547f9c8f7cb30a314fc78fec860d2dea173d65927c7d6c5",
+    "residual/r3_k4_op9.c": "f12d98ec732c2bfc69720233a7b360836a4c01748b4b5a9014f55c0c204c30d5",
+    "residual/r3_k5_op0.c": "72ecd46d0ed70b52ace8da842b87191491256c959c24141919e2e1cc6bf605e6",
+    "residual/r3_k5_op1.c": "e41b8306f9437f8222b7d5fa04634f2d1746a88e6ad3f5649ecb8e0c57aaae78",
+    "residual/r3_k5_op2.c": "d21a6373cae811c5f01a0c2a2fbde7faf8e269571740a735985376f078d1a5a6",
+    "residual/r3_k5_op3.c": "2b51850b4ac7c396c1a35f623bd190d4cf72bdf325b2c312a59bb2eea9841fce",
+    "residual/r3_k5_op4.c": "e060a7261bcac95a77cb968dea34eb4d4a966c947cf3fd000c9118a58c02ed5e",
+    "residual/r3_k5_op5.c": "e53e85fada7a992d6b36f5a94a165b44249cd08cfd26f8f96e3bd936dfb35502",
+    "residual/r3_k5_op6.c": "d165d7dda635acab9720541f48900de80102d70ee4f026efc2c7dfbc00e644b1",
+    "residual/r3_k5_op7.c": "49f00a1cef102fa64d5e435ea14eacaf6ccedc671c1d1cd0b247e6a24a897b7c",
+    "residual/r3_k5_op8.c": "ba851fef27bf2410c662984e1716fd753b491957f466511e01639177ffbeb99f",
+    "residual/r3_k5_op9.c": "e46fb4d28174420d5b1c1fc9e6f0973acb5ea8164d8b2c2bfe6ae21d4d5ff00f"
+  },
+  "partitions": [
+    {
+      "id": "initial",
+      "kind": "initial",
+      "count": 22
+    },
+    {
+      "id": "r1_k0_op0",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k0_op1",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k0_op2",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k0_op3",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k0_op4",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k0_op5",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k0_op6",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k0_op7",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k0_op8",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k0_op9",
+      "kind": "circuit",
+      "round": 1,
+      "k": 0,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k1_op0",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k1_op1",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k1_op2",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k1_op3",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k1_op4",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k1_op5",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k1_op6",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k1_op7",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k1_op8",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k1_op9",
+      "kind": "circuit",
+      "round": 1,
+      "k": 1,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k2_op0",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k2_op1",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k2_op2",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k2_op3",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k2_op4",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k2_op5",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k2_op6",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k2_op7",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k2_op8",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k2_op9",
+      "kind": "circuit",
+      "round": 1,
+      "k": 2,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k3_op0",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k3_op1",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k3_op2",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k3_op3",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k3_op4",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k3_op5",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k3_op6",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k3_op7",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k3_op8",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k3_op9",
+      "kind": "circuit",
+      "round": 1,
+      "k": 3,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k4_op0",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k4_op1",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k4_op2",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k4_op3",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k4_op4",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k4_op5",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k4_op6",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k4_op7",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k4_op8",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k4_op9",
+      "kind": "circuit",
+      "round": 1,
+      "k": 4,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k5_op0",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k5_op1",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r1_k5_op2",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k5_op3",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k5_op4",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k5_op5",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k5_op6",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k5_op7",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r1_k5_op8",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r1_k5_op9",
+      "kind": "circuit",
+      "round": 1,
+      "k": 5,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k0_op0",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k0_op1",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k0_op2",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k0_op3",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k0_op4",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k0_op5",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k0_op6",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k0_op7",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k0_op8",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k0_op9",
+      "kind": "circuit",
+      "round": 2,
+      "k": 0,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k1_op0",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k1_op1",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k1_op2",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k1_op3",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k1_op4",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k1_op5",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k1_op6",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k1_op7",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k1_op8",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k1_op9",
+      "kind": "circuit",
+      "round": 2,
+      "k": 1,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k2_op0",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k2_op1",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k2_op2",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k2_op3",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k2_op4",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k2_op5",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k2_op6",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k2_op7",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k2_op8",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k2_op9",
+      "kind": "circuit",
+      "round": 2,
+      "k": 2,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k3_op0",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k3_op1",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k3_op2",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k3_op3",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k3_op4",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k3_op5",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k3_op6",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k3_op7",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k3_op8",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k3_op9",
+      "kind": "circuit",
+      "round": 2,
+      "k": 3,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k4_op0",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k4_op1",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k4_op2",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k4_op3",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k4_op4",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k4_op5",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k4_op6",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k4_op7",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k4_op8",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k4_op9",
+      "kind": "circuit",
+      "round": 2,
+      "k": 4,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k5_op0",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k5_op1",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r2_k5_op2",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k5_op3",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k5_op4",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k5_op5",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k5_op6",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k5_op7",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r2_k5_op8",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r2_k5_op9",
+      "kind": "circuit",
+      "round": 2,
+      "k": 5,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k0_op0",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k0_op1",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k0_op2",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k0_op3",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k0_op4",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k0_op5",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k0_op6",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k0_op7",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k0_op8",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k0_op9",
+      "kind": "circuit",
+      "round": 3,
+      "k": 0,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k1_op0",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k1_op1",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k1_op2",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k1_op3",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k1_op4",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k1_op5",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k1_op6",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k1_op7",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k1_op8",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k1_op9",
+      "kind": "circuit",
+      "round": 3,
+      "k": 1,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k2_op0",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k2_op1",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k2_op2",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k2_op3",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k2_op4",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k2_op5",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k2_op6",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k2_op7",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k2_op8",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k2_op9",
+      "kind": "circuit",
+      "round": 3,
+      "k": 2,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k3_op0",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k3_op1",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k3_op2",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k3_op3",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k3_op4",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k3_op5",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k3_op6",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k3_op7",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k3_op8",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k3_op9",
+      "kind": "circuit",
+      "round": 3,
+      "k": 3,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k4_op0",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k4_op1",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k4_op2",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k4_op3",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k4_op4",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k4_op5",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k4_op6",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k4_op7",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k4_op8",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k4_op9",
+      "kind": "circuit",
+      "round": 3,
+      "k": 4,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k5_op0",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 0,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k5_op1",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 1,
+      "operation": "preparation",
+      "count": 1
+    },
+    {
+      "id": "r3_k5_op2",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 2,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k5_op3",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 3,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k5_op4",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 4,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k5_op5",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 5,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k5_op6",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 6,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k5_op7",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 7,
+      "operation": "CNOT",
+      "count": 15
+    },
+    {
+      "id": "r3_k5_op8",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 8,
+      "operation": "measurement",
+      "count": 1
+    },
+    {
+      "id": "r3_k5_op9",
+      "kind": "circuit",
+      "round": 3,
+      "k": 5,
+      "op": 9,
+      "operation": "measurement",
+      "count": 1
+    }
+  ],
+  "coverage": {
+    "canonicalInputs": 1714,
+    "initial": 22,
+    "circuit": 1692,
+    "partitionCount": 181,
+    "disjoint": true,
+    "complete": true,
+    "explanation": "Mode 0 ignores unused fields; mode 1 uses only q,a; mode 2 uses round,k,op,p. Each relevant legal input has exactly one partition."
+  }
+}

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTEC 組合式驗證：Steane [[7,1,3]] 旗標容錯糾錯</title>
+<meta name="description" content="以 CPAchecker 組合式證明與瀏覽器 WebAssembly 窮舉，驗證固定的 Steane [[7,1,3]] 旗標 FTEC 協定在 t=1 下的正確性。">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到內容</a>
+<header class="bar"><div class="bar-in">
+  <a class="wordmark" href="#top">FTEC-verify<small>v1</small></a>
+  <nav class="nav" aria-label="章節">
+    <a href="#checks">驗證什麼</a>
+    <a href="#protocol">協定</a>
+    <a href="#proof">證明鏈</a>
+    <a href="#evidence">證據</a>
+    <a href="#formats">格式與檔案</a>
+    <a href="#limits">範圍與限制</a>
+    <a href="#repro">重現</a>
+    <a class="pg" href="playground/">Playground</a>
+  </nav>
+  <button class="theme" type="button">深色</button>
+</div></header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div>
+    <div class="kicker">Fault-tolerant error correction · formal verification</div>
+    <h1>固定旗標 FTEC 協定的<em>組合式</em>正確性證明</h1>
+    <p class="lede">對象是一個<strong>固定</strong>的協定：Steane [[7,1,3]] 碼、t=1、預算 r+s≤1、每個穩定子一條旗標量測電路、現有的終止規則，以及 288 項的旗標 decoder 表。我們用 CPAchecker 把「兩次觀測相同的執行不會造成邏輯錯誤」拆成 181 個單次執行的殘餘驗證與 4 條引理，再由組合器把證據接成完整的證明。</p>
+    <p class="lede">CPAchecker 無法在瀏覽器裡執行，所以本站展示它存下來的證據；另外把同一份 <code>scalar.c</code> 編譯成 WebAssembly，讓你在瀏覽器裡把整個有限輸入域重新窮舉一次。</p>
+    <div class="btns">
+      <a class="btn primary" href="playground/">開啟 Playground</a>
+      <a class="btn" href="#proof">看證明鏈</a>
+      <a class="btn" href="#evidence">看 181 區證據</a>
+    </div>
+  </div>
+  <aside class="glance" aria-labelledby="glance-h">
+    <h2 id="glance-h">一眼看懂</h2>
+    <div class="stat"><b>1,714</b><span>合法故障配置（1 無錯誤 + 21 初始錯誤 + 1,692 電路故障）</span></div>
+    <div class="stat"><b id="g-part">181/181</b><span>殘餘分區 CPAchecker TRUE</span></div>
+    <div class="stat"><b>4 + 5</b><span>引理 TRUE，對照組皆符合預期</span></div>
+    <div class="stat"><b>288</b><span>旗標 decoder 表項</span></div>
+    <div class="stat"><b>16,384</b><span>資料 Pauli，在瀏覽器中與獨立實作逐一比對</span></div>
+    <p class="note" style="margin:.6rem 0 0">結論：<span class="tag ok">PROVED_BY_COMPOSITION</span>，組合器 issues 為空。</p>
+  </aside>
+</section>
+
+<section class="chapter" id="checks">
+  <div class="body">
+    <h2>驗證什麼<span class="en">the claim</span></h2>
+    <p>協定在一個 Pauli frame 模型中執行：資料位元 q0…q6，症狀輔助位元 q7，旗標位元 q8。每次執行結束後，我們記下 decoder 看得到的<strong>完整觀測</strong> <span class="math">m = (n, b, h₀,…,h₇)</span>：輪數 n、分支 b（一般或旗標），以及每輪 12 位元的症狀與旗標紀錄。</p>
+    <div class="thm">
+      <div class="label">定理（本模型內）</div>
+      對任意兩個合法執行 <span class="math">f₁, f₂</span>，若完整觀測相同，則
+      <span class="math display">σ(E₁ E₂) = 0 &nbsp;⟹&nbsp; E₁ E₂ ∈ S &nbsp;&nbsp;（忽略全域相位）</span>
+      其中 <span class="math">Eᵢ</span> 是第 i 次執行結束時、修正前的資料 Pauli 錯誤，<span class="math">σ</span> 是理想症狀，<span class="math">S</span> 是穩定子群。Pauli 以 (x, z) 遮罩表示，乘法就是 XOR。
+    </div>
+    <p>直觀地說：decoder 只看得到觀測，所以兩個觀測相同的執行一定會套用同一個修正。只要它們的錯誤差異不是一個「症狀為零卻不在 S 裡」的邏輯算子，這個共同修正就不會把其中一個執行修成邏輯錯誤。</p>
+    <div class="warnbox"><strong>這不是直接的雙執行模型檢查。</strong>把協定展開兩次的 pair 模型在 CPAchecker 中仍是 UNKNOWN／ERROR（v3 紀錄，沒有改判）。這裡的 TRUE 來自組合式證明：181 份單次執行證據 + 4 條引理，由 <code>compose.js</code> 逐筆核對後接成定理。</div>
+  </div>
+  <aside class="side">
+    <h3>合法配置（t=1）</h3>
+    <p>無錯誤；一個重量一的初始資料錯誤（r=1, s=0，7 位元 × 3 種 = 21）；或乾淨基線前三輪內的一個電路故障（r=0, s=1，3 輪 × 6 穩定子 × 94 = 1,692）。</p>
+    <h3>不在模型內</h3>
+    <p>idle 故障、古典控制故障、修正操作本身的故障，以及 t&gt;1、r+s&gt;1、其他碼或其他 decoder。</p>
+  </aside>
+</section>
+
+<section class="chapter" id="protocol">
+  <div class="body">
+    <h2>協定<span class="en">the fixed protocol</span></h2>
+    <p>Steane 碼的 X、Z 穩定子都由 Hamming 矩陣 <code>H = {120, 102, 85}</code>（二進位遮罩）的三列給出。每一輪依序量測 3 個 Z 型穩定子（k=0,1,2）和 3 個 X 型穩定子（k=3,4,5）。每個量測電路有 10 個操作：</p>
+    <table>
+      <tr><th>操作</th><th>內容</th><th>可注入的故障</th></tr>
+      <tr><td><code>op0</code>, <code>op1</code></td><td>準備症狀位元 q7、旗標位元 q8</td><td>準備翻轉（1 種）</td></tr>
+      <tr><td><code>op2</code>…<code>op7</code></td><td>6 個 CNOT：4 個連到資料位元，第 2、5 個（op3、op6）連到旗標</td><td>CNOT 後任意非恆等兩位元 Pauli（15 種）</td></tr>
+      <tr><td><code>op8</code>, <code>op9</code></td><td>量測 q7、q8</td><td>量測翻轉（1 種）</td></tr>
+    </table>
+    <div class="form-row"><label>顯示穩定子
+      <select id="circ-k"><option value="0">Z1 (k=0)</option><option value="1">Z2 (k=1)</option><option value="2">Z3 (k=2)</option><option value="3">X1 (k=3)</option><option value="4">X2 (k=4)</option><option value="5">X3 (k=5)</option></select></label></div>
+    <div id="circuit"></div>
+    <h3>終止規則</h3>
+    <p>若某輪任一旗標為 1，再做兩輪完整量測後停止，走<strong>旗標分支</strong>；否則連續三輪症狀相同就停止，走<strong>一般分支</strong>。容量上限 8 輪由 <code>check(n&lt;8u)</code> 以 assertion 保護，超出會報錯而不是被裁掉。</p>
+    <h3>Decoder</h3>
+    <p>一般分支：用最後一輪的 6 位元症狀做 Hamming 解碼。旗標分支：查一張由 Python 參考模型窮舉產生、共 288 項的完整歷史表。v4_1 把兩者包成只讀參數的純函式：</p>
+<pre><code>unsigned correction(unsigned n,unsigned b,unsigned h0,...,unsigned h7) {
+ unsigned last;
+ if(b) return flaglookup(n,h0,h1,h2,h3,h4,h5,h6,h7);
+ last=n==1u?h0:n==2u?h1:n==3u?h2:n==4u?h3:n==5u?h4:n==6u?h5:n==7u?h6:h7;
+ return decode(last&amp;63u); }</code></pre>
+    <p class="note">找不到表項時回傳哨兵 <code>0x80000000u</code>，<code>run()</code> 以 <code>check(cor!=0x80000000u)</code> 把它當成錯誤。</p>
+  </div>
+  <aside class="side">
+    <h3>本站不接受其他輸入</h3>
+    <p>v1 只驗證這一個協定。碼、t、電路、終止規則與 decoder 表都固定在 <code>scalar.c</code> 裡，網頁不提供修改介面。</p>
+    <h3>模型檔</h3>
+    <p><a href="src/view.html?f=scalar.c">scalar.c</a>（506 行）<br>SHA-256 <code class="mono" style="font-size:.72rem;word-break:break-all">40dc06b200111cc6aea1e815fe6fbaffa8d304c120b6982c774f980a5f44ec41</code></p>
+  </aside>
+</section>
+
+<section class="chapter" id="proof">
+  <div class="body">
+    <h2>證明鏈<span class="en">proof chain</span></h2>
+    <p>每一步都是一個（或一組）CPAchecker 驗證工作，全部使用 <code>config/bmc.properties</code>、迴圈界限 128、位元向量編碼。</p>
+    <ol class="steps">
+      <li><h4>每個合法執行都滿足殘餘界限</h4>
+        把 1,714 種輸入分成 181 個互斥區（initial 區 22 種，加上每個「輪 R、穩定子 K、操作 O」一區）。每區驗證真正的 <code>run()</code>，證明 <span class="math">wt_min(C·E) ≤ s</span>、<span class="math">r+s ≤ 1</span>，並且 <code>ec == correction(觀測)</code>。組合器獨立重算輸入域，確認覆蓋完整且互斥。
+        <div class="files">residual/*.c · manifest.json · results/residual/*</div></li>
+      <li><h4>預算放寬</h4>
+        由 <span class="math">rᵢ+sᵢ ≤ 1</span> 得 <span class="math">sᵢ ≤ 1</span>，所以 <span class="math">wt_min(C·Eᵢ) ≤ 1</span>。
+        <div class="files"><a href="src/view.html?f=lemmas/budget_relaxation.c">budget_relaxation.c</a> · TRUE</div></li>
+      <li><h4>單一殘餘的症狀與奇偶關係</h4>
+        若 <span class="math">wt_min(A) ≤ 1</span>，則 <span class="math">parity(aₓ) = [σₓ(A) ≠ 0]</span>，Z 部分同理。
+        <div class="files"><a href="src/view.html?f=lemmas/residual_signature.c">residual_signature.c</a> · TRUE</div></li>
+      <li><h4>同觀測 → 同修正（機器檢查）</h4>
+        181 區每一區都證明 <code>ec == correction(en,eb,eh0..eh7)</code>；<code>common_correction.c</code> 再證明在中間把所有全域輸出改成任意值後，<code>correction()</code> 的結果不變。所以 <span class="math">M(f₁)=M(f₂)</span> 蘊含 <span class="math">C₁=C₂</span>。
+        <div class="files"><a href="src/view.html?f=lemmas/common_correction.c">common_correction.c</a> · TRUE；對照 <a href="src/view.html?f=lemmas/common_correction_broken.c">common_correction_broken.c</a> · FALSE</div></li>
+      <li><h4>消去共同修正，推出 pair 條件</h4>
+        令 <span class="math">Aᵢ = C·Eᵢ</span>，則 <span class="math">A₁ ⊕ A₂ = E₁ ⊕ E₂ = D</span>。若 <span class="math">σ(D)=0</span>，則兩個殘餘的症狀相同，由步驟 3 它們的奇偶也相同，所以 D 的 X、Z 奇偶皆為偶，即 <span class="math">D ∈ S</span>。
+        <div class="files"><a href="src/view.html?f=lemmas/signature_pair.c">signature_pair.c</a> · TRUE；對照 <a href="src/view.html?f=lemmas/pair_bridge_broken.c">pair_bridge_broken.c</a> · FALSE</div></li>
+    </ol>
+    <p class="note">步驟 3、5 的奇偶引理只對 Steane（CSS 碼）與 t=1 成立。一般碼距論證 <span class="math">wt(P₁P₂) ≤ s₁+s₂ &lt; d</span> 沒有經過機器檢查。完整推導見 <a href="src/view.html?f=PROOF_REVIEW_zh.md">PROOF_REVIEW_zh.md</a>。</p>
+  </div>
+  <aside class="side">
+    <h3>對照組的作用</h3>
+    <p>每條關鍵引理都配一個刻意弄壞的版本，預期 FALSE。它們確認檢查真的能抓到錯誤，不是因為前提恆假而「空洞地」成立。</p>
+    <h3>殘餘界限失敗時</h3>
+    <p>若某個 decoder 讓步驟 1 失敗，結論是<strong>組合式證明不適用</strong>，不是「協定錯誤」。pair 條件可能仍然成立，兩者必須分開回報。Playground 的對照 A 示範這種情況。</p>
+  </aside>
+</section>
+
+<section class="chapter" id="evidence">
+  <div class="body">
+    <h2>證據<span class="en">stored CPAchecker results</span></h2>
+    <p>下表是 181 區殘餘驗證的實際紀錄（2026-11-22，CPAchecker 4.2.2、MathSAT5 5.6.11、每案 60 秒 CPU 上限）。每格是一區：列為（輪, 穩定子），欄為操作；點一下看細節。深色格是 CNOT 區（15 種 Pauli），淺色格是 1 種的準備／量測區。</p>
+    <div class="legend"><span><i style="background:color-mix(in srgb,var(--ok) 70%,var(--panel))"></i>TRUE（1 種輸入）</span><span><i style="background:color-mix(in srgb,var(--ok) 85%,#000)"></i>TRUE（15 種輸入）</span><span id="ev-sum"></span></div>
+    <div class="grid-wrap"><table class="pgrid" id="pgrid"></table></div>
+    <div class="detail" id="pdetail">載入證據中…</div>
+    <h3>引理與對照組</h3>
+    <table id="ltable"><tr><th>案例</th><th>角色</th><th>預期</th><th>結果</th><th>分析 CPU</th></tr></table>
+    <p class="note">所有紀錄的命令列都被組合器核對過：只有一個 <code>--config</code> 且為 <code>bmc.properties</code>、<code>maxLoopIterations=128</code>、<code>encodeBitvectorAs=BITVECTOR</code>、未關閉 bounding assertions；輸入 <code>.i</code> 的 SHA-256 與紀錄相符。原始 JSON：<a href="data/evidence.json">evidence.json</a>、<a href="src/view.html?f=COMPOSITION.json">COMPOSITION.json</a>、<a href="src/view.html?f=manifest.json">manifest.json</a>。</p>
+  </div>
+  <aside class="side">
+    <h3>TRUE 在這裡的意思</h3>
+    <p>BMC 搭配 bounding assertions：若迴圈界限 128 不足以涵蓋所有路徑，結果會是 UNKNOWN，不會是 TRUE。</p>
+    <h3>位元精確</h3>
+    <p><code>bitprecise_wrap</code>（TRUE）與 <code>_bad</code>（FALSE）確認 unsigned 溢位是以 32 位元位元向量精確建模。</p>
+    <h3>為什麼不在瀏覽器跑 CPAchecker</h3>
+    <p>CPAchecker 是 Java 程式並依賴原生 SMT 求解器。瀏覽器端改由 WASM 窮舉同一個有限模型，作為獨立的交叉檢查。</p>
+  </aside>
+</section>
+
+<section class="chapter" id="formats">
+  <div class="body">
+    <h2>格式與檔案<span class="en">encodings &amp; files</span></h2>
+    <h3>位元編碼</h3>
+    <table>
+      <tr><th>量</th><th>編碼</th></tr>
+      <tr><td>Pauli <span class="math">E</span></td><td>兩個 7 位元遮罩 <code>(x, z)</code>；第 q 位為 1 表示 q 上有 X（或 Z）成分，兩者皆 1 為 Y。乘法 = XOR，忽略相位。</td></tr>
+      <tr><td>症狀 <code>sy(x,z)</code></td><td>6 位元：低 3 位是 x 對 H 各列的奇偶（Z 型穩定子量到），高 3 位是 z 的奇偶。</td></tr>
+      <tr><td>每輪紀錄 <code>h_i</code></td><td>12 位元 <code>word = v | (flags&lt;&lt;6)</code>：位元 0–5 是 6 個穩定子的量測結果，位元 6–11 是對應旗標。</td></tr>
+      <tr><td>修正 <code>ec</code></td><td>14 位元：低 7 位 X、高 7 位 Z。<code>0x80000000</code> 是找不到表項的哨兵值。</td></tr>
+      <tr><td>故障輸入</td><td><code>run(mode,q,a,fr,fk,fo,fp)</code>：mode 0 無錯誤、1 初始錯誤（q 位，a=1 X／2 Z／3 Y）、2 電路故障（輪 fr、穩定子 fk、操作 fo、Pauli fp）。CNOT 故障的 fp 低 2 位作用在 control、高 2 位作用在 target。</td></tr>
+    </table>
+    <h3>證據檔</h3>
+    <table>
+      <tr><th>檔案</th><th>內容</th></tr>
+      <tr><td><code>manifest.json</code></td><td>schema 2：模型雜湊、181 份殘餘入口的雜湊、分區定義與覆蓋說明。</td></tr>
+      <tr><td><code>results/*/result.json</code></td><td>每次 CPAchecker 執行的狀態、耗時、模型／來源／輸入 <code>.i</code> 的 SHA-256 與完整命令列。</td></tr>
+      <tr><td><code>COMPOSITION.json</code></td><td>組合器輸出：結論、使用的分析設定、各引理狀態、證明步驟與 issues。</td></tr>
+      <tr><td><code>cases.json</code></td><td>必要的引理與對照組清單和預期結果。</td></tr>
+    </table>
+    <h3>原始檔</h3>
+    <div class="files-list">
+      <a class="doc" href="src/view.html?f=scalar.c"><b>scalar.c</b><span>被驗證的模型（v4_1）</span></a>
+      <a class="doc" href="src/view.html?f=residual/r1_k0_op2.c"><b>residual/r1_k0_op2.c</b><span>一份殘餘分區入口範例</span></a>
+      <a class="doc" href="src/view.html?f=residual/initial.c"><b>residual/initial.c</b><span>initial 區（22 種輸入）</span></a>
+      <a class="doc" href="src/view.html?f=legacy.c"><b>legacy.c</b><span>v2 獨立實作，Playground 用來比對</span></a>
+      <a class="doc" href="src/view.html?f=ftec_wasm.c"><b>ftec_wasm.c</b><span>WASM 驗證程式（Playground）</span></a>
+      <a class="doc" href="src/view.html?f=PROOF_REVIEW_zh.md"><b>PROOF_REVIEW_zh.md</b><span>嚴格重述、推導與程式對照</span></a>
+    </div>
+  </div>
+  <aside class="side">
+    <h3>WASM 與證據用的是同一份模型</h3>
+    <p>Playground 會先下載 <code>scalar.c</code>，在瀏覽器裡計算 SHA-256，與每筆 CPAchecker 紀錄的 <code>modelSHA256</code> 比對，再執行由這份檔案編譯出的 WASM。</p>
+  </aside>
+</section>
+
+<section class="chapter" id="limits">
+  <div class="body">
+    <h2>範圍與限制<span class="en">scope</span></h2>
+    <ol>
+      <li>t=1 寫死在模型、<code>residual()</code>（只列舉重量一）與輸入域（1,714 種）裡。<code>residual()</code> 開頭的 <code>check(s&lt;=1u)</code> 會擋下越界呼叫。</li>
+      <li>旗標 decoder 是 Python 窮舉產生的 288 項表；驗證過程不列舉控制流，但建模流程本身用了列舉。</li>
+      <li>步驟 3、5 的奇偶引理只對 Steane、t=1 成立；一般碼距論證沒有機器檢查。</li>
+      <li>物理模型（閘的錯誤傳遞、量測基底、旗標電路）只做過三份同源實作（Python、legacy C、scalar C）的差異測試，還沒有用 Stim 之類獨立的穩定子模擬器核對。</li>
+      <li>直接雙執行的 pair 分析沒有完成，v3 紀錄維持 UNKNOWN／ERROR。</li>
+      <li>若 decoder 讓殘餘界限不成立，組合式證明就不適用；這不代表 pair 條件不成立。</li>
+    </ol>
+  </div>
+  <aside class="side"><h3>下一步</h3><p>以獨立模擬器核對物理模型；把碼距論證機器化，才有可能推廣到其他碼。</p></aside>
+</section>
+
+<section class="chapter" id="repro">
+  <div class="body">
+    <h2>重現<span class="en">reproduce</span></h2>
+    <p>需要 Java 21、CPAchecker 4.2.2 與 Node。在 <code>ftec_compositional_v4_1</code> 資料夾中：</p>
+<pre><code>node partitions.js                       # 產生 181 份殘餘入口與 manifest，並檢查覆蓋
+node run_partitions.js --resume --seconds 60
+node run_lemmas.js                       # 引理與對照組
+node compose.js                          # 核對全部證據，寫出 COMPOSITION.json
+node test_compose.js                     # 確認組合器會拒絕失效證據</code></pre>
+    <p>本站的 WASM 由 <a href="https://yowasp.org/">YoWASP</a> 的 Clang（編譯成 WebAssembly 的 LLVM）建置，不需要原生編譯器：</p>
+<pre><code>npm i @yowasp/clang
+node tools/build_wasm.mjs      # ftec/src/*.c → ftec/assets/ftec.wasm
+node tools/test_wasm.mjs       # 在 Node 中跑一次 Playground 的全部檢查</code></pre>
+  </div>
+  <aside class="side"></aside>
+</section>
+</main>
+<footer>FTEC compositional verification · v1 · 模型 v4_1（2026-11-22）。本站只涵蓋固定協定 Steane [[7,1,3]]、t=1、r+s≤1。</footer>
+
+<script type="module">
+import { drawCircuit } from './assets/circuit.js';
+const sel = document.getElementById('circ-k');
+const draw = () => drawCircuit(document.getElementById('circuit'), +sel.value);
+sel.addEventListener('change', draw); draw();
+
+const stab = k => (k < 3 ? 'Z' : 'X') + (k % 3 + 1);
+const opName = o => o < 2 ? ['準備 q7', '準備 q8'][o] : o < 8 ? `CNOT ${o - 1}` : ['量測 q7', '量測 q8'][o - 8];
+const ev = await (await fetch('data/evidence.json')).json();
+const byId = Object.fromEntries(ev.partitions.map(p => [p.id, p]));
+const grid = document.getElementById('pgrid');
+let h = '<tr><th></th>' + [...Array(10)].map((_, o) => `<th>op${o}</th>`).join('') + '</tr>';
+h += `<tr><th>initial</th><td colspan="10" style="text-align:left"><button class="cell" style="width:100%" data-id="initial" aria-label="initial 區"></button></td></tr>`;
+for (let r = 1; r <= 3; r++) for (let k = 0; k < 6; k++) {
+  h += `<tr><th>R${r} ${stab(k)}</th>`;
+  for (let o = 0; o < 10; o++) {
+    const p = byId[`r${r}_k${k}_op${o}`];
+    h += `<td><button class="cell ${p.count === 15 ? 'c15' : ''}" data-id="${p.id}" aria-label="${p.id} ${p.status}" title="${p.id}: ${p.status}"></button></td>`;
+  }
+  h += '</tr>';
+}
+grid.innerHTML = h;
+const nTrue = ev.partitions.filter(p => p.status === 'TRUE').length;
+const total = ev.partitions.reduce((s, p) => s + p.elapsedSeconds, 0);
+document.getElementById('ev-sum').textContent = `${nTrue}/${ev.partitions.length} TRUE · 覆蓋 ${ev.coverage.canonicalInputs} 種輸入 · 總耗時 ${(total / 60).toFixed(1)} 分鐘`;
+document.getElementById('g-part').textContent = `${nTrue}/${ev.partitions.length}`;
+const detail = document.getElementById('pdetail');
+const show = id => {
+  const p = byId[id];
+  grid.querySelectorAll('.cell').forEach(c => c.classList.toggle('sel', c.dataset.id === id));
+  const what = p.kind === 'initial' ? '無錯誤與 21 種初始錯誤' : `第 ${p.round} 輪 · 穩定子 ${stab(p.k)} · ${opName(p.op)}（${p.count} 種故障）`;
+  detail.innerHTML = `<dl><dt>分區</dt><dd>${p.id} — ${what}</dd>
+    <dt>結果</dt><dd><span class="tag ok">${p.status}</span> ${p.verdictLine ?? ''}</dd>
+    <dt>耗時</dt><dd>${p.elapsedSeconds.toFixed(1)} s（分析 CPU ${p.analysisCPUSeconds ?? '–'} s，上限 ${p.timeLimitSeconds} s）</dd>
+    <dt>入口</dt><dd><a href="src/view.html?f=residual/${p.id}.c">residual/${p.id}.c</a> · ${p.sourceSHA256.slice(0, 16)}… ${p.sourceHashMatches ? '✓ 與 manifest 相符' : '✗'}</dd>
+    <dt>分析輸入 .i</dt><dd>${p.inputSHA256.slice(0, 16)}… ${p.inputHashMatches ? '✓ 與紀錄相符' : '✗'}</dd>
+    <dt>模型</dt><dd>${p.modelSHA256.slice(0, 16)}… ${p.modelSHA256 === ev.modelSHA256 ? '✓' : '✗'}</dd>
+    <dt>設定</dt><dd>${p.config} · ${p.options.join(' · ')}</dd>
+    <dt>開始</dt><dd>${p.started}</dd></dl>`;
+};
+grid.addEventListener('click', e => { const b = e.target.closest('.cell'); if (b) show(b.dataset.id); });
+show('r1_k0_op2');
+const role = { 'lemma': '引理', 'negative control': '反例對照', 'bit-precision control': '位元精確對照' };
+const lt = document.getElementById('ltable');
+for (const l of ev.lemmas) {
+  const cls = l.asExpected ? 'ok' : 'bad';
+  lt.insertAdjacentHTML('beforeend', `<tr><td><a href="src/view.html?f=lemmas/${l.name}.c"><code>${l.name}</code></a></td><td>${role[l.role] ?? l.role}</td><td>${l.expected}</td>
+    <td><span class="tag ${cls}">${l.status}</span>${l.asExpected ? ' 符合預期' : ' 不符預期'}</td><td class="num">${l.analysisCPUSeconds ?? '–'} s</td></tr>`);
+}
+</script>
+</body>
+</html>

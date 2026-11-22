@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>原始檔 · FTEC-verify</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/site.js"></script>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="wordmark" href="../">FTEC-verify<small>v1</small></a>
+  <nav class="nav"><a href="../#formats">格式與檔案</a><a href="../#evidence">證據</a><a class="pg" href="../playground/">Playground</a></nav>
+  <button class="theme" type="button">深色</button>
+</div></header>
+<main>
+  <h1 style="font:700 1.4rem var(--serif);margin:2rem 0 .3rem" id="name"></h1>
+  <p class="note" id="meta"></p>
+  <pre><code id="code">載入中…</code></pre>
+</main>
+<script>
+(async () => {
+  const f = new URLSearchParams(location.search).get('f') || 'scalar.c';
+  const name = document.getElementById('name'), code = document.getElementById('code'), meta = document.getElementById('meta');
+  // Only files shipped in this folder: letters, digits, _ - . and one optional subfolder.
+  if (!/^([a-z_]+\/)?[A-Za-z0-9_.-]+\.(c|h|json|md)$/.test(f) || f.includes('..')) { code.textContent = '不支援的檔名'; return; }
+  name.textContent = f;
+  const res = await fetch(f);
+  if (!res.ok) { code.textContent = '找不到檔案'; return; }
+  const buf = await res.arrayBuffer();
+  const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', buf))].map(b => b.toString(16).padStart(2, '0')).join('');
+  const text = new TextDecoder().decode(buf);
+  meta.innerHTML = `${text.split('\n').length - 1} 行 · ${buf.byteLength.toLocaleString()} bytes · SHA-256 <code>${hash}</code> · <a href="${f}" download>下載原檔</a>`;
+  code.textContent = text;
+})();
+</script>
+</body>
+</html>

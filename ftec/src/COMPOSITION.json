@@ -1,0 +1,84 @@
+{
+  "schema": 2,
+  "method": "Compositional proof; not a direct two-execution CPAchecker run",
+  "conclusion": "PROVED_BY_COMPOSITION",
+  "modelSHA256": "40dc06b200111cc6aea1e815fe6fbaffa8d304c120b6982c774f980a5f44ec41",
+  "analysis": {
+    "config": "config/bmc.properties",
+    "options": [
+      "cpa.loopbound.maxLoopIterations=128",
+      "cpa.predicate.encodeBitvectorAs=BITVECTOR"
+    ],
+    "boundingAssertions": "enabled (default; disabling is rejected)",
+    "checkedOnEveryRecord": true
+  },
+  "residual": {
+    "verifiedTRUE": 181,
+    "expected": 181,
+    "coverageVerified": true,
+    "canonicalInputs": 1714
+  },
+  "lemmas": [
+    {
+      "name": "budget_relaxation",
+      "status": "TRUE",
+      "role": "lemma"
+    },
+    {
+      "name": "residual_signature",
+      "status": "TRUE",
+      "role": "lemma"
+    },
+    {
+      "name": "signature_pair",
+      "status": "TRUE",
+      "role": "lemma"
+    },
+    {
+      "name": "common_correction",
+      "status": "TRUE",
+      "role": "lemma"
+    },
+    {
+      "name": "pair_bridge_broken",
+      "status": "FALSE",
+      "role": "negative control"
+    },
+    {
+      "name": "common_correction_broken",
+      "status": "FALSE",
+      "role": "negative control"
+    },
+    {
+      "name": "residual_guard_broken",
+      "status": "FALSE",
+      "role": "negative control"
+    },
+    {
+      "name": "bitprecise_wrap",
+      "status": "TRUE",
+      "role": "bit-precision control"
+    },
+    {
+      "name": "bitprecise_wrap_bad",
+      "status": "FALSE",
+      "role": "bit-precision control"
+    }
+  ],
+  "commonCorrection": {
+    "method": "Machine-checked: per-run ec==correction(obs) in all 181 partitions + common_correction lemma",
+    "premise": "Equal branch, round count and complete per-round syndrome/flag history h0..h7 (including last round)",
+    "correction": "correction(n,b,h0..h7) = b ? flaglookup(n,h0..h7) : decode(h_{n-1}&63)",
+    "equalityIsRequired": true
+  },
+  "steps": [
+    "All legal executions satisfy ec==correction(obs) and residual(C E,s) (181 partitions, complete disjoint coverage).",
+    "Separate per-run budgets imply s<=1; budget_relaxation implies residual(C E,1).",
+    "common_correction: correction() depends only on the observation, so equal complete observations give the same C.",
+    "residual_signature establishes the parity/syndrome signature of each C E.",
+    "signature_pair proves the ORIGINAL pre-correction E1/E2 pair predicate for arbitrary common C."
+  ],
+  "directPairRuns": "Not re-run. Earlier v3 UNKNOWN/ERROR results are not relabeled.",
+  "evidence": ".",
+  "issues": []
+}

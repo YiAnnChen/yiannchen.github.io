@@ -1,12 +1,28 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My website</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>yiannchen.github.io</title>
+<link rel="stylesheet" href="ftec/assets/style.css">
+<script src="ftec/assets/site.js"></script>
 </head>
 <body>
-  <h1>Hello!</h1>
-  <p>This is my first GitHub Pages website.</p>
+<header class="bar"><div class="bar-in">
+  <span class="wordmark">yiannchen.github.io</span><span style="flex:1"></span>
+  <button class="theme" type="button">深色</button>
+</div></header>
+<main>
+  <section style="padding:3.5rem 0 2rem">
+    <div class="kicker">Projects</div>
+    <h1 style="font:700 2rem var(--serif);margin:.3rem 0 1.5rem">專案</h1>
+    <div class="files-list" style="grid-template-columns:repeat(auto-fill,minmax(320px,1fr))">
+      <a class="doc" href="ftec/" style="padding:1.1rem 1.2rem">
+        <b style="font-size:1rem">FTEC-verify</b>
+        <span style="margin-top:.3rem">Steane [[7,1,3]] 旗標容錯糾錯協定的組合式正確性證明：CPAchecker 證據、證明鏈，以及在瀏覽器中以 WebAssembly 窮舉檢查的 Playground。</span>
+      </a>
+    </div>
+  </section>
+</main>
 </body>
 </html>

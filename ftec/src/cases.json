@@ -1,0 +1,11 @@
+{
+  "budget_relaxation": {"expected": "TRUE", "includesModel": true, "role": "lemma"},
+  "residual_signature": {"expected": "TRUE", "includesModel": true, "role": "lemma"},
+  "signature_pair": {"expected": "TRUE", "includesModel": true, "role": "lemma"},
+  "common_correction": {"expected": "TRUE", "includesModel": true, "role": "lemma"},
+  "pair_bridge_broken": {"expected": "FALSE", "includesModel": true, "role": "negative control"},
+  "common_correction_broken": {"expected": "FALSE", "includesModel": true, "role": "negative control"},
+  "residual_guard_broken": {"expected": "FALSE", "includesModel": true, "role": "negative control"},
+  "bitprecise_wrap": {"expected": "TRUE", "includesModel": false, "role": "bit-precision control"},
+  "bitprecise_wrap_bad": {"expected": "FALSE", "includesModel": false, "role": "bit-precision control"}
+}
