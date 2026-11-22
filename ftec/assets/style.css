@@ -72,7 +72,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 1.2rem 5rem; }
 table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: .8rem 0; }
 th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
 th { font-weight: 600; color: var(--ink-2); font-size: .85rem; }
-td.num { font-family: var(--mono); text-align: right; }
+td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
 .tag { display: inline-block; font: 600 .75rem var(--mono); padding: .05rem .45rem; border-radius: 4px; background: var(--chip); color: var(--ink-2); }
 .tag.ok { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
 .tag.bad { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }

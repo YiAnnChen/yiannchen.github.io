@@ -10,7 +10,7 @@
 </head>
 <body>
 <header class="bar"><div class="bar-in">
-  <a class="wordmark" href="../">FTEC-verify<small>v1</small></a>
+  <a class="wordmark" href="../">FTEC-verify</a>
   <nav class="nav" aria-label="章節">
     <a href="../#checks">驗證什麼</a><a href="../#protocol">協定</a><a href="../#proof">證明鏈</a><a href="../#evidence">證據</a>
     <a href="#run">窮舉檢查</a><a href="#explore">單次執行</a>
@@ -24,7 +24,12 @@
   <section class="card" id="run">
     <div class="kicker">WebAssembly · 在你的瀏覽器中執行</div>
     <h2>窮舉檢查固定協定</h2>
-    <p style="margin:.2rem 0 .6rem">把與 CPAchecker 證據相同的 <code>scalar.c</code>，連同 v2 的獨立實作 <code>legacy.c</code>，一起編譯成 WebAssembly（<span id="wasm-size">…</span>）。模型的輸入域是有限的，所以可以把每一個合法配置、每一對執行都直接跑過一次。</p>
+    <p style="margin:.2rem 0 .4rem">按下按鈕後，你的瀏覽器會把協定可能遇到的<strong>每一種單一故障</strong>都實際模擬一次，確認每一種情況最後都被正確修好。在 t=1 的假設下，可能的故障情況只有 1,714 種，所以可以全部跑完，不需要抽樣。</p>
+    <p style="margin:0 0 .6rem">用到兩份程式，都已編譯成瀏覽器可直接執行的 WebAssembly（<span id="wasm-size">…</span>）：</p>
+    <ul style="margin:0 0 .6rem;padding-left:1.2rem;font-size:.93rem">
+      <li><a href="../src/view.html?f=scalar.c"><code>scalar.c</code></a>：協定的模擬程式，也就是 CPAchecker 證明的那一份，一個字都沒改。</li>
+      <li><a href="../src/view.html?f=legacy.c"><code>legacy.c</code></a>：另一份獨立寫成的同一協定模擬程式，寫法完全不同。兩份結果一致，才能排除模擬程式本身寫錯。</li>
+    </ul>
     <div class="btns" style="margin-top:.4rem"><button class="btn primary" id="go" disabled>載入中…</button><span class="note" id="timing" style="align-self:center"></span></div>
     <div class="progress"><div id="bar"></div></div>
     <ul class="checks" id="checks"></ul>
@@ -54,7 +59,7 @@
   <section class="card">
     <h2>模式</h2>
     <div class="seg" id="modes">
-      <label><input type="radio" name="mode" value="0" checked><span><b>協定（已驗證）</b><small>原封不動的 v4_1 模型與 288 項 decoder。</small></span></label>
+      <label><input type="radio" name="mode" value="0" checked><span><b>協定（已驗證）</b><small>原本的協定與 288 項 decoder 表，不做任何修改。</small></span></label>
       <label><input type="radio" name="mode" value="1"><span><b>對照 A：一般分支不修正</b><small>一般分支的修正改成恆等。殘餘界限會失敗，所以組合式證明不適用；pair 條件仍另外檢查。</small></span></label>
       <label><input type="radio" name="mode" value="2"><span><b>對照 B：只看最後一輪</b><small>觀測只保留分支與最後一輪紀錄，丟掉較早的歷史。用來說明旗標分支為什麼需要完整歷史。</small></span></label>
     </div>
@@ -69,7 +74,7 @@
 </aside>
 </div>
 </main>
-<footer>FTEC-verify v1 · Playground · <a href="../src/view.html?f=ftec_wasm.c">ftec_wasm.c</a> · <a href="../assets/ftec-core.js">ftec-core.js</a></footer>
+<footer>FTEC-verify · Playground · 檢查程式原始碼：<a href="../src/view.html?f=ftec_wasm.c">ftec_wasm.c</a>（把兩份模擬程式包起來、執行上面各項檢查的 C 程式）</footer>
 
 <script type="module" src="playground.js"></script>
 </body>

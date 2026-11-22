@@ -6,14 +6,14 @@ const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, 
 const fmt = n => n.toLocaleString('en-US');
 
 const CHECKS = [
-  ['hash', '模型雜湊一致', '瀏覽器下載的 scalar.c 的 SHA-256，等於每筆 CPAchecker 紀錄的 modelSHA256，也等於這份 WASM 的建置輸入。'],
-  ['pauli', '16,384 個資料 Pauli', 'scalar.c 的 sy、member、residual(·,0)、residual(·,1) 與 legacy.c 的暴力列舉逐一相同。'],
-  ['equiv', '1,714 個配置：與獨立實作相同', '最終錯誤 E、r、s、輪數、分支、每輪歷史與 decoder 輸出都和 legacy.c 相同。'],
-  ['budget', '預算 r+s ≤ 1', '每個合法配置都在 t=1 預算內。'],
-  ['obs', '修正只由觀測決定', '每個執行實際使用的 ec 都等於 correction(n,b,h₀..h₇)。對應證明鏈步驟 4。'],
-  ['residual', '殘餘界限 wt_min(C·E) ≤ s', '對應證明鏈步驟 1（CPAchecker 的 181 區）。以 scalar.c 與 legacy.c 各算一次。'],
-  ['lemmas', '有限域引理', 'budget_relaxation（x,z,r,s）、residual_signature（16,384 個 Pauli）、signature_pair（4,096² 對殘餘）全部窮舉。'],
-  ['pairs', 'pair 條件（直接檢查）', '所有觀測相同的執行對 (f₁,f₂)：σ(E₁E₂)=0 ⟹ E₁E₂ ∈ S。這是定理本身。'],
+  ['hash', '跑的是被證明的那一份程式', '下載的 scalar.c 指紋（SHA-256）和 CPAchecker 每筆紀錄的完全相同，也和編譯這份 WebAssembly 時用的相同。'],
+  ['pauli', '錯誤判讀的基本工具正確', '7 個資料位元上全部 16,384 種 Pauli 錯誤：兩份程式算出的症狀、「是否無害（屬於穩定子群）」、「是否最多差一個位元」完全相同。'],
+  ['equiv', '兩份模擬程式結果一致', '1,714 種故障情況逐一模擬，兩份程式算出的最終錯誤、每輪量測紀錄、何時停止、走哪個分支與 decoder 的修正都一樣。'],
+  ['budget', '故障數在假設之內', '每種情況最多只有一個故障（初始錯誤 r 加電路故障 s 不超過 1）。'],
+  ['obs', '修正只看量測結果', 'decoder 套用的修正，完全由量到的紀錄決定，沒有偷看實際的錯誤。對應證明鏈步驟 4。'],
+  ['residual', '每次修正後只剩可容許的錯誤', '修正後剩下的錯誤，最多只差 s 個位元（s 是這次的電路故障數；沒有電路故障就必須完全修好）。這就是 CPAchecker 181 區證明的內容（步驟 1），兩份程式各算一次。'],
+  ['lemmas', '證明裡的三個數學小步驟', '證明鏈步驟 2、3、5 的引理，在所有可能的輸入上逐一檢查（最後一條要檢查 4,096 × 4,096 種組合）。'],
+  ['pairs', '最終目標：量到一樣的兩次執行不會互相矛盾', '任兩次量測紀錄完全相同的執行，若它們錯誤的差異量不到（症狀為零），這個差異一定無害（屬於穩定子群），所以同一個修正對兩者都正確。這就是定理本身。'],
 ];
 
 let F, ev, build, modelOK = false;
@@ -99,7 +99,7 @@ function verdict(mode, r) {
   if (!implOK) html += box('bad', '實作檢查失敗', '模型雜湊或與獨立實作的比對不一致，以下結論不可採信。');
   if (mode === 2) html += box('na', '組合式證明不適用於這個假設', '對照 B 只改變 pair 條件裡「觀測相同」的定義，殘餘檢查仍使用原本看完整歷史的 decoder。證明鏈步驟 4（同觀測 → 同修正）依賴完整觀測，所以這裡只看下一格的直接 pair 檢查。');
   else html += comp
-    ? box('ok', '組合式證明適用', '殘餘界限在全部 1,714 個配置成立，三條有限域引理窮舉無反例；搭配 common_correction（只能由 CPAchecker 證明），證明鏈的前提全部成立。')
+    ? box('ok', '組合式證明適用', '1,714 種情況修正後都只剩可容許的錯誤，三個數學小步驟也都沒有反例。再加上「修正只由量測紀錄決定」這一步（需要 CPAchecker 證明，見證據頁），證明鏈的每一步都成立。')
     : box('na', '組合式證明不適用', `殘餘界限在 ${r.residual} 個配置不成立，所以證明鏈步驟 1 的前提不成立。<strong>這不等於協定錯誤</strong>，pair 條件需要另外判斷（見下一格）。`);
   if (r.pr.bad === 0) {
     html += box('ok', 'pair 條件：TRUE（窮舉）', `${fmt(r.pr.pairs)} 對觀測相同的執行（含 f₁=f₂）全部滿足 σ(E₁E₂)=0 ⟹ E₁E₂ ∈ S。` +

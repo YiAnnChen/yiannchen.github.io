@@ -11,7 +11,7 @@
 <body>
 <a class="skip" href="#main">跳到內容</a>
 <header class="bar"><div class="bar-in">
-  <a class="wordmark" href="#top">FTEC-verify<small>v1</small></a>
+  <a class="wordmark" href="#top">FTEC-verify</a>
   <nav class="nav" aria-label="章節">
     <a href="#checks">驗證什麼</a>
     <a href="#protocol">協定</a>
@@ -31,7 +31,7 @@
     <div class="kicker">Fault-tolerant error correction · formal verification</div>
     <h1>固定旗標 FTEC 協定的<em>組合式</em>正確性證明</h1>
     <p class="lede">對象是一個<strong>固定</strong>的協定：Steane [[7,1,3]] 碼、t=1、預算 r+s≤1、每個穩定子一條旗標量測電路、現有的終止規則，以及 288 項的旗標 decoder 表。我們用 CPAchecker 把「兩次觀測相同的執行不會造成邏輯錯誤」拆成 181 個單次執行的殘餘驗證與 4 條引理，再由組合器把證據接成完整的證明。</p>
-    <p class="lede">CPAchecker 無法在瀏覽器裡執行，所以本站展示它存下來的證據；另外把同一份 <code>scalar.c</code> 編譯成 WebAssembly，讓你在瀏覽器裡把整個有限輸入域重新窮舉一次。</p>
+    <p class="lede">CPAchecker 無法在瀏覽器裡執行，所以本站展示它存下來的證據；另外把協定的模擬程式 <code>scalar.c</code>（也就是 CPAchecker 證明的對象）編譯成 WebAssembly，讓你在瀏覽器裡把每一種可能的故障都實際跑一次。</p>
     <div class="btns">
       <a class="btn primary" href="playground/">開啟 Playground</a>
       <a class="btn" href="#proof">看證明鏈</a>
@@ -60,7 +60,7 @@
       其中 <span class="math">Eᵢ</span> 是第 i 次執行結束時、修正前的資料 Pauli 錯誤，<span class="math">σ</span> 是理想症狀，<span class="math">S</span> 是穩定子群。Pauli 以 (x, z) 遮罩表示，乘法就是 XOR。
     </div>
     <p>直觀地說：decoder 只看得到觀測，所以兩個觀測相同的執行一定會套用同一個修正。只要它們的錯誤差異不是一個「症狀為零卻不在 S 裡」的邏輯算子，這個共同修正就不會把其中一個執行修成邏輯錯誤。</p>
-    <div class="warnbox"><strong>這不是直接的雙執行模型檢查。</strong>把協定展開兩次的 pair 模型，CPAchecker 沒有得到結論。這裡的 TRUE 來自組合式證明：181 份單次執行證據 + 4 條引理，由 <code>compose.js</code> 逐筆核對後接成定理。</div>
+    <div class="warnbox"><strong>這不是直接的雙執行模型檢查。</strong>把協定展開兩次的 pair 模型，CPAchecker 沒有得到結論。這裡的 TRUE 來自組合式證明：先分別證明 181 份「單次執行」的結果和 4 條數學引理，再由組合檢查程式 <code>compose.js</code>（負責逐筆核對所有證據，確認它們能接成完整定理）把它們接起來。</div>
   </div>
   <aside class="side">
     <h3>合法配置（t=1）</h3>
@@ -87,7 +87,7 @@
     <h3>終止規則</h3>
     <p>若某輪任一旗標為 1，再做兩輪完整量測後停止，走<strong>旗標分支</strong>；否則連續三輪症狀相同就停止，走<strong>一般分支</strong>。容量上限 8 輪由 <code>check(n&lt;8u)</code> 以 assertion 保護，超出會報錯而不是被裁掉。</p>
     <h3>Decoder</h3>
-    <p>一般分支：用最後一輪的 6 位元症狀做 Hamming 解碼。旗標分支：查一張由 Python 參考模型窮舉產生、共 288 項的完整歷史表。v4_1 把兩者包成只讀參數的純函式：</p>
+    <p>一般分支：用最後一輪的 6 位元症狀做 Hamming 解碼。旗標分支：查一張由 Python 參考模型窮舉產生、共 288 項的完整歷史表。程式把兩者包成一個只看量測結果的函式 <code>correction()</code>：</p>
 <pre><code>unsigned correction(unsigned n,unsigned b,unsigned h0,...,unsigned h7) {
  unsigned last;
  if(b) return flaglookup(n,h0,h1,h2,h3,h4,h5,h6,h7);
@@ -97,9 +97,9 @@
   </div>
   <aside class="side">
     <h3>本站不接受其他輸入</h3>
-    <p>v1 只驗證這一個協定。碼、t、電路、終止規則與 decoder 表都固定在 <code>scalar.c</code> 裡，網頁不提供修改介面。</p>
-    <h3>模型檔</h3>
-    <p><a href="src/view.html?f=scalar.c">scalar.c</a>（506 行）<br>SHA-256 <code class="mono" style="font-size:.72rem;word-break:break-all">40dc06b200111cc6aea1e815fe6fbaffa8d304c120b6982c774f980a5f44ec41</code></p>
+    <p>本站只驗證這一個協定。碼、t、電路、終止規則與 decoder 表都寫死在模擬程式 <code>scalar.c</code> 裡，網頁不提供修改介面。</p>
+    <h3>被證明的程式</h3>
+    <p><a href="src/view.html?f=scalar.c">scalar.c</a>：協定的模擬程式（506 行），所有證明都針對這一份。<br>SHA-256 指紋 <code class="mono" style="font-size:.72rem;word-break:break-all">40dc06b200111cc6aea1e815fe6fbaffa8d304c120b6982c774f980a5f44ec41</code></p>
   </aside>
 </section>
 
@@ -107,24 +107,25 @@
   <div class="body">
     <h2>證明鏈<span class="en">proof chain</span></h2>
     <p>每一步都是一個（或一組）CPAchecker 驗證工作，全部使用 <code>config/bmc.properties</code>、迴圈界限 128、位元向量編碼。</p>
+    <p class="note">每一步下面列出負責檢查它的小程式（<code>.c</code> 檔，點開可看原始碼）。TRUE 代表 CPAchecker 證明它成立；標「對照」的是刻意寫錯的版本，應該得到 FALSE，用來確認檢查真的會抓到錯。</p>
     <ol class="steps">
       <li><h4>每個合法執行都滿足殘餘界限</h4>
         把 1,714 種輸入分成 181 個互斥區（initial 區 22 種，加上每個「輪 R、穩定子 K、操作 O」一區）。每區驗證真正的 <code>run()</code>，證明 <span class="math">wt_min(C·E) ≤ s</span>、<span class="math">r+s ≤ 1</span>，並且 <code>ec == correction(觀測)</code>。組合器獨立重算輸入域，確認覆蓋完整且互斥。
-        <div class="files">residual/*.c · manifest.json · results/residual/*</div></li>
+        <div class="files">residual/*.c（181 份，每區一份驗證程式）· manifest.json（分區清單與每份程式的指紋）· results/residual/*（每區的 CPAchecker 執行紀錄）</div></li>
       <li><h4>預算放寬</h4>
         由 <span class="math">rᵢ+sᵢ ≤ 1</span> 得 <span class="math">sᵢ ≤ 1</span>，所以 <span class="math">wt_min(C·Eᵢ) ≤ 1</span>。
-        <div class="files"><a href="src/view.html?f=lemmas/budget_relaxation.c">budget_relaxation.c</a> · TRUE</div></li>
+        <div class="files"><a href="src/view.html?f=lemmas/budget_relaxation.c">budget_relaxation.c</a>（檢查這一步）· TRUE</div></li>
       <li><h4>單一殘餘的症狀與奇偶關係</h4>
         若 <span class="math">wt_min(A) ≤ 1</span>，則 <span class="math">parity(aₓ) = [σₓ(A) ≠ 0]</span>，Z 部分同理。
-        <div class="files"><a href="src/view.html?f=lemmas/residual_signature.c">residual_signature.c</a> · TRUE</div></li>
+        <div class="files"><a href="src/view.html?f=lemmas/residual_signature.c">residual_signature.c</a>（檢查這一步）· TRUE</div></li>
       <li><h4>同觀測 → 同修正（機器檢查）</h4>
-        181 區每一區都證明 <code>ec == correction(en,eb,eh0..eh7)</code>；<code>common_correction.c</code> 再證明在中間把所有全域輸出改成任意值後，<code>correction()</code> 的結果不變。所以 <span class="math">M(f₁)=M(f₂)</span> 蘊含 <span class="math">C₁=C₂</span>。
-        <div class="files"><a href="src/view.html?f=lemmas/common_correction.c">common_correction.c</a> · TRUE；對照 <a href="src/view.html?f=lemmas/common_correction_broken.c">common_correction_broken.c</a> · FALSE</div></li>
+        181 區每一區都證明 <code>ec == correction(en,eb,eh0..eh7)</code>；小程式 <code>common_correction.c</code> 再證明在中間把所有全域輸出改成任意值後，<code>correction()</code> 的結果不變。所以 <span class="math">M(f₁)=M(f₂)</span> 蘊含 <span class="math">C₁=C₂</span>。
+        <div class="files"><a href="src/view.html?f=lemmas/common_correction.c">common_correction.c</a>（檢查這一步）· TRUE；對照 <a href="src/view.html?f=lemmas/common_correction_broken.c">common_correction_broken.c</a>（故意讓修正偷看實際錯誤）· FALSE</div></li>
       <li><h4>消去共同修正，推出 pair 條件</h4>
         令 <span class="math">Aᵢ = C·Eᵢ</span>，則 <span class="math">A₁ ⊕ A₂ = E₁ ⊕ E₂ = D</span>。若 <span class="math">σ(D)=0</span>，則兩個殘餘的症狀相同，由步驟 3 它們的奇偶也相同，所以 D 的 X、Z 奇偶皆為偶，即 <span class="math">D ∈ S</span>。
-        <div class="files"><a href="src/view.html?f=lemmas/signature_pair.c">signature_pair.c</a> · TRUE；對照 <a href="src/view.html?f=lemmas/pair_bridge_broken.c">pair_bridge_broken.c</a> · FALSE</div></li>
+        <div class="files"><a href="src/view.html?f=lemmas/signature_pair.c">signature_pair.c</a>（檢查這一步）· TRUE；對照 <a href="src/view.html?f=lemmas/pair_bridge_broken.c">pair_bridge_broken.c</a>（故意拿掉第二次執行的前提）· FALSE</div></li>
     </ol>
-    <p class="note">步驟 3、5 的奇偶引理只對 Steane（CSS 碼）與 t=1 成立。一般碼距論證 <span class="math">wt(P₁P₂) ≤ s₁+s₂ &lt; d</span> 沒有經過機器檢查。完整推導見 <a href="src/view.html?f=PROOF_REVIEW_zh.md">PROOF_REVIEW_zh.md</a>。</p>
+    <p class="note">步驟 3、5 的奇偶引理只對 Steane（CSS 碼）與 t=1 成立。一般碼距論證 <span class="math">wt(P₁P₂) ≤ s₁+s₂ &lt; d</span> 沒有經過機器檢查。完整推導見<a href="src/view.html?f=PROOF_REVIEW_zh.md">證明說明文件</a>（逐步推導，以及每一步對應到哪段程式）。</p>
   </div>
   <aside class="side">
     <h3>對照組的作用</h3>
@@ -142,8 +143,8 @@
     <div class="grid-wrap"><table class="pgrid" id="pgrid"></table></div>
     <div class="detail" id="pdetail">載入證據中…</div>
     <h3>引理與對照組</h3>
-    <table id="ltable"><tr><th>案例</th><th>角色</th><th>預期</th><th>結果</th><th>分析 CPU</th></tr></table>
-    <p class="note">所有紀錄的命令列都被組合器核對過：只有一個 <code>--config</code> 且為 <code>bmc.properties</code>、<code>maxLoopIterations=128</code>、<code>encodeBitvectorAs=BITVECTOR</code>、未關閉 bounding assertions；輸入 <code>.i</code> 的 SHA-256 與紀錄相符。原始 JSON：<a href="data/evidence.json">evidence.json</a>、<a href="src/view.html?f=COMPOSITION.json">COMPOSITION.json</a>、<a href="src/view.html?f=manifest.json">manifest.json</a>。</p>
+    <table id="ltable"><tr><th>小程式</th><th>在檢查什麼</th><th>預期</th><th>結果</th><th>分析 CPU</th></tr></table>
+    <p class="note">這些紀錄都經過自動核對：每一次都用同一組 CPAchecker 設定（BMC、迴圈上限 128、精確的 32 位元整數運算、保留「迴圈上限不夠就不能回報 TRUE」的檢查），而且 CPAchecker 實際分析的程式內容和紀錄裡的指紋相符。原始資料：<a href="data/evidence.json">evidence.json</a>（本節表格用的全部紀錄）、<a href="src/view.html?f=COMPOSITION.json">COMPOSITION.json</a>（組合檢查的最終報告）、<a href="src/view.html?f=manifest.json">manifest.json</a>（181 區的分區清單與每份程式的指紋）。</p>
   </div>
   <aside class="side">
     <h3>TRUE 在這裡的意思</h3>
@@ -170,24 +171,24 @@
     <h3>證據檔</h3>
     <table>
       <tr><th>檔案</th><th>內容</th></tr>
-      <tr><td><code>manifest.json</code></td><td>schema 2：模型雜湊、181 份殘餘入口的雜湊、分區定義與覆蓋說明。</td></tr>
-      <tr><td><code>results/*/result.json</code></td><td>每次 CPAchecker 執行的狀態、耗時、模型／來源／輸入 <code>.i</code> 的 SHA-256 與完整命令列。</td></tr>
-      <tr><td><code>COMPOSITION.json</code></td><td>組合器輸出：結論、使用的分析設定、各引理狀態、證明步驟與 issues。</td></tr>
-      <tr><td><code>cases.json</code></td><td>必要的引理與對照組清單和預期結果。</td></tr>
+      <tr><td><code>manifest.json</code></td><td>分區清單：181 區各自涵蓋哪些故障、每份驗證程式的指紋，以及模擬程式的指紋。</td></tr>
+      <tr><td><code>results/*/result.json</code></td><td>每次 CPAchecker 執行的紀錄：結果、耗時、所用程式的指紋（包含 CPAchecker 實際分析的前處理後程式），以及完整命令列。</td></tr>
+      <tr><td><code>COMPOSITION.json</code></td><td>組合檢查的最終報告：結論、使用的分析設定、各引理的結果、證明步驟，以及發現的問題（目前為空）。</td></tr>
+      <tr><td><code>cases.json</code></td><td>證明需要哪些引理與對照組，以及各自預期的結果。</td></tr>
     </table>
     <h3>原始檔</h3>
     <div class="files-list">
-      <a class="doc" href="src/view.html?f=scalar.c"><b>scalar.c</b><span>被驗證的模型（v4_1）</span></a>
-      <a class="doc" href="src/view.html?f=residual/r1_k0_op2.c"><b>residual/r1_k0_op2.c</b><span>一份殘餘分區入口範例</span></a>
-      <a class="doc" href="src/view.html?f=residual/initial.c"><b>residual/initial.c</b><span>initial 區（22 種輸入）</span></a>
-      <a class="doc" href="src/view.html?f=legacy.c"><b>legacy.c</b><span>v2 獨立實作，Playground 用來比對</span></a>
-      <a class="doc" href="src/view.html?f=ftec_wasm.c"><b>ftec_wasm.c</b><span>WASM 驗證程式（Playground）</span></a>
-      <a class="doc" href="src/view.html?f=PROOF_REVIEW_zh.md"><b>PROOF_REVIEW_zh.md</b><span>嚴格重述、推導與程式對照</span></a>
+      <a class="doc" href="src/view.html?f=scalar.c"><b>scalar.c</b><span>協定的模擬程式：電路、故障、終止規則與 decoder 都在這裡，也是被證明的對象</span></a>
+      <a class="doc" href="src/view.html?f=residual/r1_k0_op2.c"><b>residual/r1_k0_op2.c</b><span>一區的驗證程式範例：第 1 輪、穩定子 Z1、第一個 CNOT 後發生故障</span></a>
+      <a class="doc" href="src/view.html?f=residual/initial.c"><b>residual/initial.c</b><span>「無故障或只有初始錯誤」那一區的驗證程式（22 種情況）</span></a>
+      <a class="doc" href="src/view.html?f=legacy.c"><b>legacy.c</b><span>另一份獨立寫成的同一協定模擬程式，寫法完全不同，Playground 用它交叉比對</span></a>
+      <a class="doc" href="src/view.html?f=ftec_wasm.c"><b>ftec_wasm.c</b><span>Playground 的檢查程式：把上面兩份模擬程式包起來，逐一測試所有情況</span></a>
+      <a class="doc" href="src/view.html?f=PROOF_REVIEW_zh.md"><b>證明說明文件</b><span>定理的嚴格敘述、逐步推導，以及每一步對應到哪段程式</span></a>
     </div>
   </div>
   <aside class="side">
     <h3>WASM 與證據用的是同一份模型</h3>
-    <p>Playground 會先下載 <code>scalar.c</code>，在瀏覽器裡計算 SHA-256，與每筆 CPAchecker 紀錄的 <code>modelSHA256</code> 比對，再執行由這份檔案編譯出的 WASM。</p>
+    <p>Playground 會先下載模擬程式 <code>scalar.c</code>，在瀏覽器裡算出它的指紋（SHA-256），確認和 CPAchecker 證明時用的那份完全相同，再執行由它編譯出的 WebAssembly。</p>
   </aside>
 </section>
 
@@ -209,21 +210,21 @@
 <section class="chapter" id="repro">
   <div class="body">
     <h2>重現<span class="en">reproduce</span></h2>
-    <p>需要 Java 21、CPAchecker 4.2.2 與 Node。在 <code>ftec_compositional_v4_1</code> 資料夾中：</p>
-<pre><code>node partitions.js                       # 產生 181 份殘餘入口與 manifest，並檢查覆蓋
-node run_partitions.js --resume --seconds 60
-node run_lemmas.js                       # 引理與對照組
-node compose.js                          # 核對全部證據，寫出 COMPOSITION.json
-node test_compose.js                     # 確認組合器會拒絕失效證據</code></pre>
+    <p>需要 Java 21、CPAchecker 4.2.2 與 Node。在專案的驗證資料夾中依序執行：</p>
+<pre><code>node partitions.js                       # 產生 181 區的驗證程式與分區清單，並確認沒有遺漏或重疊
+node run_partitions.js --resume --seconds 60   # 逐區執行 CPAchecker
+node run_lemmas.js                       # 執行 4 條引理與 5 個對照組
+node compose.js                          # 核對全部證據，寫出最終報告 COMPOSITION.json
+node test_compose.js                     # 故意破壞證據，確認組合檢查會拒絕</code></pre>
     <p>本站的 WASM 由 <a href="https://yowasp.org/">YoWASP</a> 的 Clang（編譯成 WebAssembly 的 LLVM）建置，不需要原生編譯器：</p>
 <pre><code>npm i @yowasp/clang
-node tools/build_wasm.mjs      # ftec/src/*.c → ftec/assets/ftec.wasm
+node tools/build_wasm.mjs      # 把模擬程式編譯成 Playground 用的 ftec.wasm
 node tools/test_wasm.mjs       # 在 Node 中跑一次 Playground 的全部檢查</code></pre>
   </div>
   <aside class="side"></aside>
 </section>
 </main>
-<footer>FTEC compositional verification · v1 · 模型 v4_1（2026-11-22）。本站只涵蓋固定協定 Steane [[7,1,3]]、t=1、r+s≤1。</footer>
+<footer>FTEC compositional verification · 證據產生於 2026-11-22。本站只涵蓋固定協定 Steane [[7,1,3]]、t=1、r+s≤1。</footer>
 
 <script type="module">
 import { drawCircuit } from './assets/circuit.js';
@@ -259,19 +260,29 @@ const show = id => {
   detail.innerHTML = `<dl><dt>分區</dt><dd>${p.id} — ${what}</dd>
     <dt>結果</dt><dd><span class="tag ok">${p.status}</span> ${p.verdictLine ?? ''}</dd>
     <dt>耗時</dt><dd>${p.elapsedSeconds.toFixed(1)} s（分析 CPU ${p.analysisCPUSeconds ?? '–'} s，上限 ${p.timeLimitSeconds} s）</dd>
-    <dt>入口</dt><dd><a href="src/view.html?f=residual/${p.id}.c">residual/${p.id}.c</a> · ${p.sourceSHA256.slice(0, 16)}… ${p.sourceHashMatches ? '✓ 與 manifest 相符' : '✗'}</dd>
-    <dt>分析輸入 .i</dt><dd>${p.inputSHA256.slice(0, 16)}… ${p.inputHashMatches ? '✓ 與紀錄相符' : '✗'}</dd>
+    <dt>驗證程式</dt><dd><a href="src/view.html?f=residual/${p.id}.c">residual/${p.id}.c</a> · ${p.sourceSHA256.slice(0, 16)}… ${p.sourceHashMatches ? '✓ 與分區清單相符' : '✗'}</dd>
+    <dt>實際分析的程式</dt><dd>${p.inputSHA256.slice(0, 16)}… ${p.inputHashMatches ? '✓ 與紀錄相符' : '✗'}</dd>
     <dt>模型</dt><dd>${p.modelSHA256.slice(0, 16)}… ${p.modelSHA256 === ev.modelSHA256 ? '✓' : '✗'}</dd>
     <dt>設定</dt><dd>${p.config} · ${p.options.join(' · ')}</dd>
     <dt>開始</dt><dd>${p.started}</dd></dl>`;
 };
 grid.addEventListener('click', e => { const b = e.target.closest('.cell'); if (b) show(b.dataset.id); });
 show('r1_k0_op2');
-const role = { 'lemma': '引理', 'negative control': '反例對照', 'bit-precision control': '位元精確對照' };
+const what = {
+  budget_relaxation: '引理：每次執行的故障預算 s≤1，所以殘餘可放寬成「最多差一個位元」',
+  residual_signature: '引理：最多差一個位元的錯誤，其奇偶由症狀決定',
+  signature_pair: '引理：兩個這樣的殘餘若症狀相同，差異必是無害的穩定子',
+  common_correction: '引理：decoder 的修正只由量測紀錄決定',
+  pair_bridge_broken: '對照：拿掉第二次執行的前提，結論就不成立',
+  common_correction_broken: '對照：讓修正偷看隱藏狀態，應被抓出',
+  residual_guard_broken: '對照：殘餘函式只支援 s≤1，用 s=2 呼叫應報錯',
+  bitprecise_wrap: '對照：確認 CPAchecker 精確模擬 32 位元整數溢位',
+  bitprecise_wrap_bad: '對照：只有在精確整數語意下才會出錯的程式，應被抓出',
+};
 const lt = document.getElementById('ltable');
 for (const l of ev.lemmas) {
   const cls = l.asExpected ? 'ok' : 'bad';
-  lt.insertAdjacentHTML('beforeend', `<tr><td><a href="src/view.html?f=lemmas/${l.name}.c"><code>${l.name}</code></a></td><td>${role[l.role] ?? l.role}</td><td>${l.expected}</td>
+  lt.insertAdjacentHTML('beforeend', `<tr><td><a href="src/view.html?f=lemmas/${l.name}.c"><code>${l.name}</code></a></td><td>${what[l.name] ?? l.role}</td><td>${l.expected}</td>
     <td><span class="tag ${cls}">${l.status}</span>${l.asExpected ? ' 符合預期' : ' 不符預期'}</td><td class="num">${l.analysisCPUSeconds ?? '–'} s</td></tr>`);
 }
 </script>

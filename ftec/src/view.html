@@ -9,7 +9,7 @@
 </head>
 <body>
 <header class="bar"><div class="bar-in">
-  <a class="wordmark" href="../">FTEC-verify<small>v1</small></a>
+  <a class="wordmark" href="../">FTEC-verify</a>
   <nav class="nav"><a href="../#formats">格式與檔案</a><a href="../#evidence">證據</a><a class="pg" href="../playground/">Playground</a></nav>
   <button class="theme" type="button">深色</button>
 </div></header>
@@ -24,7 +24,30 @@
   const name = document.getElementById('name'), code = document.getElementById('code'), meta = document.getElementById('meta');
   // Only files shipped in this folder: letters, digits, _ - . and one optional subfolder.
   if (!/^([a-z_]+\/)?[A-Za-z0-9_.-]+\.(c|h|json|md)$/.test(f) || f.includes('..')) { code.textContent = '不支援的檔名'; return; }
-  name.textContent = f;
+  const what = {
+    'scalar.c': '協定的模擬程式：電路、故障、終止規則與 decoder 都在這裡，也是 CPAchecker 證明的對象。',
+    'legacy.c': '另一份獨立寫成的同一協定模擬程式，寫法完全不同，Playground 用它交叉比對。',
+    'ftec_wasm.c': 'Playground 的檢查程式：把兩份模擬程式包起來，逐一測試所有故障情況。',
+    'PROOF_REVIEW_zh.md': '證明說明文件：定理的嚴格敘述、逐步推導，以及每一步對應到哪段程式。',
+    'manifest.json': '分區清單：181 區各自涵蓋哪些故障，以及每份驗證程式的指紋。',
+    'COMPOSITION.json': '組合檢查的最終報告：結論、分析設定、各引理結果與證明步驟。',
+    'cases.json': '證明需要哪些引理與對照組，以及各自預期的結果。',
+    'lemmas/budget_relaxation.c': '引理（證明鏈步驟 2）：故障預算 s≤1，所以殘餘可放寬成「最多差一個位元」。預期 TRUE。',
+    'lemmas/residual_signature.c': '引理（步驟 3）：最多差一個位元的錯誤，其奇偶由症狀決定。預期 TRUE。',
+    'lemmas/signature_pair.c': '引理（步驟 5）：兩個這樣的殘餘若症狀相同，差異必是無害的穩定子。預期 TRUE。',
+    'lemmas/common_correction.c': '引理（步驟 4）：decoder 的修正只由量測紀錄決定。預期 TRUE。',
+    'lemmas/pair_bridge_broken.c': '對照：拿掉第二次執行的前提，結論就不成立。預期 FALSE。',
+    'lemmas/common_correction_broken.c': '對照：讓修正偷看隱藏狀態，應被抓出。預期 FALSE。',
+    'lemmas/residual_guard_broken.c': '對照：殘餘函式只支援 s≤1，用 s=2 呼叫應報錯。預期 FALSE。',
+    'lemmas/bitprecise_wrap.c': '對照：確認 CPAchecker 精確模擬 32 位元整數溢位。預期 TRUE。',
+    'lemmas/bitprecise_wrap_bad.c': '對照：只有在精確整數語意下才會出錯的程式，應被抓出。預期 FALSE。',
+  };
+  let desc = what[f];
+  if (!desc && f === 'residual/initial.c') desc = '「無故障或只有初始錯誤」那一區（22 種情況）的 CPAchecker 驗證程式。';
+  const m = /^residual\/r(\d)_k(\d)_op(\d)\.c$/.exec(f);
+  if (!desc && m) desc = `一區的 CPAchecker 驗證程式：第 ${m[1]} 輪、穩定子 ${(+m[2] < 3 ? 'Z' : 'X') + (+m[2] % 3 + 1)}、操作 op${m[3]} 發生故障的所有情況。`;
+  name.textContent = f === 'PROOF_REVIEW_zh.md' ? '證明說明文件' : f;
+  if (desc) name.insertAdjacentHTML('afterend', `<p style="margin:.2rem 0 .3rem">${desc}</p>`);
   const res = await fetch(f);
   if (!res.ok) { code.textContent = '找不到檔案'; return; }
   const buf = await res.arrayBuffer();
