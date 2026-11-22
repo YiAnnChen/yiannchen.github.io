@@ -60,7 +60,7 @@
       其中 <span class="math">Eᵢ</span> 是第 i 次執行結束時、修正前的資料 Pauli 錯誤，<span class="math">σ</span> 是理想症狀，<span class="math">S</span> 是穩定子群。Pauli 以 (x, z) 遮罩表示，乘法就是 XOR。
     </div>
     <p>直觀地說：decoder 只看得到觀測，所以兩個觀測相同的執行一定會套用同一個修正。只要它們的錯誤差異不是一個「症狀為零卻不在 S 裡」的邏輯算子，這個共同修正就不會把其中一個執行修成邏輯錯誤。</p>
-    <div class="warnbox"><strong>這不是直接的雙執行模型檢查。</strong>把協定展開兩次的 pair 模型在 CPAchecker 中仍是 UNKNOWN／ERROR（v3 紀錄，沒有改判）。這裡的 TRUE 來自組合式證明：181 份單次執行證據 + 4 條引理，由 <code>compose.js</code> 逐筆核對後接成定理。</div>
+    <div class="warnbox"><strong>這不是直接的雙執行模型檢查。</strong>把協定展開兩次的 pair 模型，CPAchecker 沒有得到結論。這裡的 TRUE 來自組合式證明：181 份單次執行證據 + 4 條引理，由 <code>compose.js</code> 逐筆核對後接成定理。</div>
   </div>
   <aside class="side">
     <h3>合法配置（t=1）</h3>
@@ -83,6 +83,7 @@
     <div class="form-row"><label>顯示穩定子
       <select id="circ-k"><option value="0">Z1 (k=0)</option><option value="1">Z2 (k=1)</option><option value="2">Z3 (k=2)</option><option value="3">X1 (k=3)</option><option value="4">X2 (k=4)</option><option value="5">X3 (k=5)</option></select></label></div>
     <div id="circuit"></div>
+    <p class="note">六個穩定子共用同一套排程（資料、旗標、資料、資料、旗標、資料），差別只在接到哪 4 個資料位元：Z 型與 X 型各自對應 H 的三列，X 型再把 CNOT 的控制與目標對調。圖中只有實線的資料位元會被這個穩定子碰到。</p>
     <h3>終止規則</h3>
     <p>若某輪任一旗標為 1，再做兩輪完整量測後停止，走<strong>旗標分支</strong>；否則連續三輪症狀相同就停止，走<strong>一般分支</strong>。容量上限 8 輪由 <code>check(n&lt;8u)</code> 以 assertion 保護，超出會報錯而不是被裁掉。</p>
     <h3>Decoder</h3>
@@ -198,7 +199,7 @@
       <li>旗標 decoder 是 Python 窮舉產生的 288 項表；驗證過程不列舉控制流，但建模流程本身用了列舉。</li>
       <li>步驟 3、5 的奇偶引理只對 Steane、t=1 成立；一般碼距論證沒有機器檢查。</li>
       <li>物理模型（閘的錯誤傳遞、量測基底、旗標電路）只做過三份同源實作（Python、legacy C、scalar C）的差異測試，還沒有用 Stim 之類獨立的穩定子模擬器核對。</li>
-      <li>直接雙執行的 pair 分析沒有完成，v3 紀錄維持 UNKNOWN／ERROR。</li>
+      <li>直接展開兩次協定的 pair 分析，CPAchecker 沒有得到結論。</li>
       <li>若 decoder 讓殘餘界限不成立，組合式證明就不適用；這不代表 pair 條件不成立。</li>
     </ol>
   </div>
