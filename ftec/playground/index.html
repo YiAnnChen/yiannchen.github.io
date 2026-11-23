@@ -13,12 +13,30 @@
   <a class="wordmark" href="../">FTEC-verify</a>
   <nav class="nav" aria-label="章節">
     <a href="../#checks">驗證什麼</a><a href="../#protocol">協定</a><a href="../#proof">證明鏈</a><a href="../#evidence">證據</a>
-    <a href="#run">窮舉檢查</a><a href="#explore">單次執行</a>
+    <a href="#compose">組合式證明</a><a href="#run">窮舉檢查</a><a href="#explore">單次執行</a>
   </nav>
   <button class="theme" type="button">深色</button>
 </div></header>
 
 <main id="main">
+  <section class="card" id="compose" style="margin-top:2rem">
+    <div class="kicker">組合式證明 · 重做組合檢查</div>
+    <h2>檢查 CPAchecker 的證據能不能接成定理</h2>
+    <p style="margin:.2rem 0 .4rem">CPAchecker 的推理只能在電腦上跑（它是 Java 程式，還需要原生的求解器），所以 181 區和 9 個引理／對照組的結果是事先跑好、存下來的紀錄。但「把這些紀錄接成完整定理」這一步只是核對資料，可以在你的瀏覽器裡重做一次：</p>
+    <ul style="margin:0 0 .6rem;padding-left:1.2rem;font-size:.93rem">
+      <li>確認紀錄證明的對象，就是網站上的 <a href="../src/view.html?f=scalar.c"><code>scalar.c</code></a>（協定的模擬程式）。</li>
+      <li>重新列出 1,714 種故障，確認 181 區剛好不重疊、不遺漏。</li>
+      <li>下載 181 份驗證程式，確認每一份都沒被改過、都包含「修正只由量測紀錄決定」的檢查，而且 CPAchecker 分析的就是它、結果是 TRUE、用的是規定的設定。</li>
+      <li>確認 4 條引理都是 TRUE、5 個對照組都得到預期的結果。</li>
+    </ul>
+    <div class="form-row"><label>故意破壞一份證據（用來確認檢查會抓到）
+      <select id="c-tamper"></select></label>
+      <button class="btn primary" id="c-go" disabled>載入中…</button><span class="note" id="c-timing" style="align-self:center"></span></div>
+    <div class="progress"><div id="c-bar"></div></div>
+    <ul class="checks" id="c-checks"></ul>
+    <div id="c-verdict"></div>
+  </section>
+
 <div class="pg-grid">
 <div>
   <section class="card" id="run">
@@ -57,7 +75,7 @@
 
 <aside>
   <section class="card">
-    <h2>模式</h2>
+    <h2>窮舉檢查的模式</h2>
     <div class="seg" id="modes">
       <label><input type="radio" name="mode" value="0" checked><span><b>協定（已驗證）</b><small>原本的協定與 288 項 decoder 表，不做任何修改。</small></span></label>
       <label><input type="radio" name="mode" value="1"><span><b>對照 A：一般分支不修正</b><small>一般分支的修正改成恆等。殘餘界限會失敗，所以組合式證明不適用；pair 條件仍另外檢查。</small></span></label>
@@ -67,7 +85,7 @@
   </section>
   <section class="card">
     <h2>和 CPAchecker 證據的關係</h2>
-    <p style="font-size:.9rem">CPAchecker 用符號方法證明 181 區與 4 條引理，組合器再把它們接成定理，這是本專案的主要結論，見<a href="../#evidence">證據</a>。</p>
+    <p style="font-size:.9rem">CPAchecker 用符號方法證明 181 區與 4 條引理，再把它們接成定理，這是本專案的主要結論。上方的「組合式證明」區塊會在瀏覽器裡重做「接成定理」的核對；每一區的紀錄也可以在首頁的<a href="../#evidence">證據</a>逐格查看。</p>
     <p style="font-size:.9rem">這裡是獨立的第二道檢查：同一個有限模型，用具體執行把每個輸入都跑過。它還額外直接檢查了 pair 條件本身，也就是 CPAchecker 的雙執行模型沒能完成的那一步。不過它依賴編譯器與列舉程式的正確性，不取代符號證明。</p>
     <p class="note" id="build"></p>
   </section>

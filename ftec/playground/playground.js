@@ -1,4 +1,5 @@
 import { loadFtec, pauliString, describeInput, stabName, twoQubitPauli } from '../assets/ftec-core.js';
+import { compose, TAMPERS } from '../assets/compose.js';
 
 const $ = id => document.getElementById(id);
 const tick = () => new Promise(r => setTimeout(r, 0));
@@ -195,3 +196,42 @@ $('x-go').addEventListener('click', explorerRun);
 $('x-rand').addEventListener('click', explorerRandom);
 fillExplorer();
 boot().catch(e => { $('go').textContent = '載入失敗'; $('verdict').innerHTML = box('bad', '載入失敗', String(e)); });
+
+/* ---------- compositional proof: redo the combining step in the browser ---------- */
+const C_STEPS = [
+  ['model', '證據證明的就是這份模擬程式', '每筆紀錄與分區清單裡的模型指紋，等於網站上 scalar.c 的 SHA-256。'],
+  ['coverage', '181 區剛好蓋住全部 1,714 種故障', '在瀏覽器裡重新列出所有故障，確認每一種都恰好屬於一區。'],
+  ['partitions', '181 區都證明成立', '每一區的驗證程式沒被改過、含「修正只由量測紀錄決定」的檢查；CPAchecker 分析的就是它，結果 TRUE，設定合格。'],
+  ['lemmas', '4 條引理成立', '預算放寬、殘餘的奇偶、修正只看量測紀錄、消去共同修正，都是 TRUE。'],
+  ['controls', '5 個對照組符合預期', '刻意寫錯的版本都得到 FALSE，位元精確對照得到預期結果，確認檢查不是空洞地成立。'],
+];
+const sha256Text = async s => hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)));
+const loadText = p => fetch('../' + p, { cache: 'no-cache' }).then(r => { if (!r.ok) throw Error(p + ' ' + r.status); return r.text(); });
+function renderC(res) {
+  $('c-checks').innerHTML = C_STEPS.map(([k, t, d]) => {
+    const s = res && res.steps.find(x => x.key === k);
+    const cls = s ? (s.ok ? 'ok' : 'bad') : '', icon = s ? (s.ok ? '✓' : '✗') : '·';
+    return `<li class="${cls}"><span class="ic">${icon}</span><span><span class="t">${t}</span><br><span class="d">${d}</span></span><span class="r">${s ? s.detail : ''}</span></li>`;
+  }).join('');
+}
+async function runCompose() {
+  const tamper = $('c-tamper').value;
+  $('c-go').disabled = true; $('c-verdict').innerHTML = ''; renderC(null);
+  const t0 = performance.now();
+  try {
+    const res = await compose({ load: loadText, sha256: sha256Text, tamper, onProgress: f => { $('c-bar').style.width = (f * 100).toFixed(0) + '%'; } });
+    $('c-bar').style.width = '100%';
+    renderC(res);
+    $('c-timing').textContent = `完成，用時 ${((performance.now() - t0) / 1000).toFixed(2)} 秒`;
+    if (res.conclusion === 'PROVED_BY_COMPOSITION')
+      $('c-verdict').innerHTML = box('ok', '組合式證明成立（PROVED_BY_COMPOSITION）', '所有證據都核對通過，能接成完整定理：任兩次量測紀錄相同的執行，錯誤差異若量不到，就一定是無害的穩定子。');
+    else
+      $('c-verdict').innerHTML = box('bad', '組合式證明不完整（INCOMPLETE）', (tamper !== 'none' ? '這是預期的：你選了「' + TAMPERS[tamper] + '」，檢查有抓到。' : '') +
+        '<ul style="margin:.4rem 0 0;padding-left:1.2rem;font-size:.88rem">' + res.issues.slice(0, 6).map(i => '<li>' + i + '</li>').join('') + (res.issues.length > 6 ? `<li>…共 ${res.issues.length} 項</li>` : '') + '</ul>');
+  } catch (e) { $('c-verdict').innerHTML = box('bad', '載入失敗', String(e)); }
+  $('c-go').disabled = false; $('c-go').textContent = '再跑一次';
+}
+$('c-tamper').innerHTML = Object.entries(TAMPERS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('');
+renderC(null);
+$('c-go').disabled = false; $('c-go').textContent = '開始組合檢查';
+$('c-go').addEventListener('click', runCompose);
