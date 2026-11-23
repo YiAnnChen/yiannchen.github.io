@@ -92,10 +92,23 @@
       <select id="circ-k"><option value="0">Z1 (k=0)</option><option value="1">Z2 (k=1)</option><option value="2">Z3 (k=2)</option><option value="3">X1 (k=3)</option><option value="4">X2 (k=4)</option><option value="5">X3 (k=5)</option></select></label></div>
     <div id="circuit"></div>
     <p class="note">六個穩定子共用同一套排程（資料、旗標、資料、資料、旗標、資料），差別只在接到哪 4 個資料位元（見上表），X 型再把 CNOT 的控制與目標對調。圖中只有實線的資料位元會被這個穩定子碰到。</p>
-    <h3>終止規則</h3>
-    <p>若某輪任一旗標為 1，再做兩輪完整量測後停止，走<strong>旗標分支</strong>；否則連續三輪症狀相同就停止，走<strong>一般分支</strong>。容量上限 8 輪由 <code>check(n&lt;8u)</code> 以 assertion 保護，超出會報錯而不是被裁掉。</p>
-    <h3>Decoder</h3>
-    <p>一般分支：用最後一輪的 6 位元症狀做 Hamming 解碼。旗標分支：查一張由 Python 參考模型窮舉產生、共 288 項的完整歷史表。程式把兩者包成一個只看量測結果的函式 <code>correction()</code>：</p>
+    <h3>旗標是做什麼的</h3>
+    <p>量測電路裡的 CNOT 會把症狀位元 q7 和資料位元連在一起。若故障發生在電路<strong>中間</strong>，同一個錯誤可能經由後面的 CNOT 擴散到<strong>兩個</strong>資料位元上。一般的 Hamming 解碼假設最多只有一個位元出錯，遇到這種「被擴散的錯誤」可能修錯。旗標位元 q8 就是用來偵測這種情況：只要中間出了這類故障，旗標就會量到 1。</p>
+    <h3>終止規則：兩種停法</h3>
+    <table>
+      <tr><th></th><th>一般分支</th><th>旗標分支</th></tr>
+      <tr><td>什麼時候走</td><td>所有旗標都是 0</td><td>某一輪有任何旗標量到 1</td></tr>
+      <tr><td>何時停止</td><td>連續三輪量到相同的症狀</td><td>旗標亮起後，再完整量兩輪就停</td></tr>
+      <tr><td>代表什麼</td><td>錯誤最多影響一個資料位元</td><td>可能有一個擴散到兩個位元的錯誤</td></tr>
+      <tr><td>怎麼決定修正</td><td>只看最後一輪的症狀</td><td>看整段量測紀錄，查表決定</td></tr>
+    </table>
+    <p>旗標亮起後為什麼還要再量兩輪？因為 t=1 只允許一個故障，而它已經發生了，之後的量測都是乾淨的，能量到資料錯誤真正的症狀。</p>
+    <p class="note">最多量 8 輪。程式用 <code>check(n&lt;8u)</code> 把「超過 8 輪」當成錯誤回報，不會偷偷略過那些情況。</p>
+    <h3>Decoder：怎麼決定修正</h3>
+    <p><strong>一般分支</strong>：拿最後一輪的 6 位元症狀，對照穩定子表找出是哪一個位元出錯，修正那一個位元（Hamming 解碼）。</p>
+    <p><strong>旗標分支</strong>：查一張「量測紀錄 → 修正」的對照表。這裡的<strong>完整量測紀錄</strong>是指從第一輪到停止為止、每一輪 12 個位元的量測結果：6 個穩定子的症狀，加上 6 個旗標。例如「第 1 輪 Z1 的旗標亮起，共量 3 輪，每一輪 X1 的症狀都是 1」就是一筆紀錄。這張表是用 Python 寫的參考模擬程式，把所有會讓旗標亮起的單一故障逐一模擬，記下每一種會出現的量測紀錄和對應的正確修正，共 288 筆。</p>
+    <p>旗標分支為什麼一定要看<strong>整段</strong>紀錄、不能只看最後一輪？因為不同位置的故障，最後一輪可能量到完全一樣的結果，只有從「哪一輪、哪個穩定子的旗標亮了」才分得出來。Playground 的對照 B 就是只看最後一輪，會找到 2,880 對分不出來的例子。</p>
+    <p>程式把兩種分支包成同一個函式 <code>correction()</code>，它只看量測紀錄，看不到實際的錯誤：</p>
 <pre><code>unsigned correction(unsigned n,unsigned b,unsigned h0,...,unsigned h7) {
  unsigned last;
  if(b) return flaglookup(n,h0,h1,h2,h3,h4,h5,h6,h7);
