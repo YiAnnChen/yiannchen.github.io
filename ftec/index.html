@@ -144,6 +144,13 @@
         <div class="files"><a href="src/view.html?f=lemmas/common_correction.c">common_correction.c</a>（檢查這一步）· TRUE；對照 <a href="src/view.html?f=lemmas/common_correction_broken.c">common_correction_broken.c</a>（故意讓修正偷看實際錯誤）· FALSE</div></li>
       <li><h4>消去共同修正，推出 pair 條件</h4>
         令 <span class="math">Aᵢ = C·Eᵢ</span>，則 <span class="math">A₁ ⊕ A₂ = E₁ ⊕ E₂ = D</span>。若 <span class="math">σ(D)=0</span>，則兩個殘餘的症狀相同，由步驟 3 它們的奇偶也相同，所以 D 的 X、Z 奇偶皆為偶，即 <span class="math">D ∈ S</span>。
+        <div class="thm" style="margin:.7rem 0 .4rem;font-size:.93rem"><div class="label">奇偶在這裡的用途</div>
+        症狀為零的錯誤只有兩種：<strong>無害的穩定子</strong>，或<strong>會改變邏輯資訊的邏輯錯誤</strong>。量測量不出兩者的差別，但在 Steane 碼裡，奇偶剛好能分辨：
+        <ul style="margin:.3rem 0 .2rem">
+          <li>穩定子都由「4 個位元」的組合相乘而成，X、Z 成分的位元數一定是<strong>偶數</strong>。例如 Z₃Z₄Z₅Z₆。</li>
+          <li>邏輯錯誤的 X 或 Z 成分是<strong>奇數</strong>個位元。例如 Z₂Z₄Z₅：症狀為零，但有 3 個位元，所以是邏輯錯誤（Playground 對照 B 找到的反例就是它）。</li>
+        </ul>
+        所以只要知道 D 的症狀為零、X 與 Z 的奇偶都是偶數，就能確定 D 是無害的穩定子，同一個修正不會讓任何一次執行變成邏輯錯誤。</div>
         <div class="files"><a href="src/view.html?f=lemmas/signature_pair.c">signature_pair.c</a>（檢查這一步）· TRUE；對照 <a href="src/view.html?f=lemmas/pair_bridge_broken.c">pair_bridge_broken.c</a>（故意拿掉第二次執行的前提）· FALSE</div></li>
     </ol>
     <p class="note">步驟 3、5 的奇偶引理只對 Steane（CSS 碼）與 t=1 成立。一般碼距論證 <span class="math">wt(P₁P₂) ≤ s₁+s₂ &lt; d</span> 沒有經過機器檢查。完整推導見<a href="src/view.html?f=PROOF_REVIEW_zh.md">證明說明文件</a>（逐步推導，以及每一步對應到哪段程式）。</p>
