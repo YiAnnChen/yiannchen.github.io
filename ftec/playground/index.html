@@ -27,7 +27,7 @@
     <p style="margin:.2rem 0 .4rem">按下按鈕後，你的瀏覽器會把協定可能遇到的<strong>每一種單一故障</strong>都實際模擬一次，確認每一種情況最後都被正確修好。在 t=1 的假設下，可能的故障情況只有 1,714 種，所以可以全部跑完，不需要抽樣。</p>
     <p style="margin:0 0 .6rem">用到兩份程式，都已編譯成瀏覽器可直接執行的 WebAssembly（<span id="wasm-size">…</span>）：</p>
     <ul style="margin:0 0 .6rem;padding-left:1.2rem;font-size:.93rem">
-      <li><a href="../src/view.html?f=scalar.c"><code>scalar.c</code></a>：協定的模擬程式，也就是 CPAchecker 證明的那一份，一個字都沒改。</li>
+      <li><a href="../src/view.html?f=scalar.c"><code>scalar.c</code></a>：協定的模擬程式，也就是 CPAchecker 證明的那一份。</li>
       <li><a href="../src/view.html?f=legacy.c"><code>legacy.c</code></a>：另一份獨立寫成的同一協定模擬程式，寫法完全不同。兩份結果一致，才能排除模擬程式本身寫錯。</li>
     </ul>
     <div class="btns" style="margin-top:.4rem"><button class="btn primary" id="go" disabled>載入中…</button><span class="note" id="timing" style="align-self:center"></span></div>
