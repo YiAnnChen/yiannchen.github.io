@@ -22,7 +22,7 @@
   <section class="card" id="compose" style="margin-top:2rem">
     <div class="kicker">組合式證明 · 重做組合檢查</div>
     <h2>檢查 CPAchecker 的證據能不能接成定理</h2>
-    <p style="margin:.2rem 0 .4rem">CPAchecker 的推理只能在電腦上跑（它是 Java 程式，還需要原生的求解器），所以 181 區和 9 個引理／對照組的結果是事先跑好、存下來的紀錄。但「把這些紀錄接成完整定理」這一步只是核對資料，可以在你的瀏覽器裡重做一次：</p>
+    <p style="margin:.2rem 0 .4rem">181 個分區驗證與 9 項引理／對照組由 CPAchecker 離線完成，本頁載入其執行紀錄。組合步驟只需核對這些證據，不必重新進行模型檢查，因此可在瀏覽器中完整重現：</p>
     <ul style="margin:0 0 .6rem;padding-left:1.2rem;font-size:.93rem">
       <li>確認紀錄證明的對象，就是網站上的 <a href="../src/view.html?f=scalar.c"><code>scalar.c</code></a>（協定的模擬程式）。</li>
       <li>重新列出 1,714 種故障，確認 181 區剛好不重疊、不遺漏。</li>
