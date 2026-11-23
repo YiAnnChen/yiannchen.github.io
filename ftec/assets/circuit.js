@@ -38,5 +38,5 @@ export function drawCircuit(el, k) {
   box(9, FLAG, zType ? 'M_X' : 'M_Z');
   for (let op = 0; op <= 9; op++) s += `<text class="lbl" x="${X(op)}" y="${Hh - 8}" text-anchor="middle">op${op}</text>`;
   s += '</svg>';
-  el.innerHTML = s + `<p class="note" style="margin:.2rem 0 0">${(zType ? 'Z' : 'X') + (k % 3 + 1)} 作用在 <strong>q${qs.join('、q')}</strong>（H 的第 ${k % 3 + 1} 列 = ${H[k % 3]}）。</p>`;
+  el.innerHTML = s + `<p class="note" style="margin:.2rem 0 0">${(zType ? 'Z' : 'X') + (k % 3 + 1)} 作用在 <strong>q${qs.join('、q')}</strong>。</p>`;
 }

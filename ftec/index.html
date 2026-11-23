@@ -73,7 +73,15 @@
 <section class="chapter" id="protocol">
   <div class="body">
     <h2>協定<span class="en">the fixed protocol</span></h2>
-    <p>Steane 碼的 X、Z 穩定子都由 Hamming 矩陣 <code>H = {120, 102, 85}</code>（二進位遮罩）的三列給出。每一輪依序量測 3 個 Z 型穩定子（k=0,1,2）和 3 個 X 型穩定子（k=3,4,5）。每個量測電路有 10 個操作：</p>
+    <p>Steane 碼有 6 個穩定子，但它們只用到 3 組「4 個資料位元」：同一組位元上全放 Z，就是 Z 型穩定子；全放 X，就是 X 型穩定子。</p>
+    <table>
+      <tr><th>位元組合</th><th>Z 型穩定子</th><th>X 型穩定子</th></tr>
+      <tr><td>q3、q4、q5、q6</td><td>Z1 = Z₃Z₄Z₅Z₆</td><td>X1 = X₃X₄X₅X₆</td></tr>
+      <tr><td>q1、q2、q5、q6</td><td>Z2 = Z₁Z₂Z₅Z₆</td><td>X2 = X₁X₂X₅X₆</td></tr>
+      <tr><td>q0、q2、q4、q6</td><td>Z3 = Z₀Z₂Z₄Z₆</td><td>X3 = X₀X₂X₄X₆</td></tr>
+    </table>
+    <p class="note">這三組位元來自 Hamming [7,4] 碼的檢查矩陣，這正是 Steane 碼的構造方式。</p>
+    <p>每一輪依序量測 Z1、Z2、Z3，再量測 X1、X2、X3。每個穩定子用一條量測電路，每條電路有 10 個操作：</p>
     <table>
       <tr><th>操作</th><th>內容</th><th>可注入的故障</th></tr>
       <tr><td><code>op0</code>, <code>op1</code></td><td>準備症狀位元 q7、旗標位元 q8</td><td>準備翻轉（1 種）</td></tr>
@@ -83,7 +91,7 @@
     <div class="form-row"><label>顯示穩定子
       <select id="circ-k"><option value="0">Z1 (k=0)</option><option value="1">Z2 (k=1)</option><option value="2">Z3 (k=2)</option><option value="3">X1 (k=3)</option><option value="4">X2 (k=4)</option><option value="5">X3 (k=5)</option></select></label></div>
     <div id="circuit"></div>
-    <p class="note">六個穩定子共用同一套排程（資料、旗標、資料、資料、旗標、資料），差別只在接到哪 4 個資料位元：Z 型與 X 型各自對應 H 的三列，X 型再把 CNOT 的控制與目標對調。圖中只有實線的資料位元會被這個穩定子碰到。</p>
+    <p class="note">六個穩定子共用同一套排程（資料、旗標、資料、資料、旗標、資料），差別只在接到哪 4 個資料位元（見上表），X 型再把 CNOT 的控制與目標對調。圖中只有實線的資料位元會被這個穩定子碰到。</p>
     <h3>終止規則</h3>
     <p>若某輪任一旗標為 1，再做兩輪完整量測後停止，走<strong>旗標分支</strong>；否則連續三輪症狀相同就停止，走<strong>一般分支</strong>。容量上限 8 輪由 <code>check(n&lt;8u)</code> 以 assertion 保護，超出會報錯而不是被裁掉。</p>
     <h3>Decoder</h3>
@@ -163,7 +171,7 @@
     <table>
       <tr><th>量</th><th>編碼</th></tr>
       <tr><td>Pauli <span class="math">E</span></td><td>兩個 7 位元遮罩 <code>(x, z)</code>；第 q 位為 1 表示 q 上有 X（或 Z）成分，兩者皆 1 為 Y。乘法 = XOR，忽略相位。</td></tr>
-      <tr><td>症狀 <code>sy(x,z)</code></td><td>6 位元：低 3 位是 x 對 H 各列的奇偶（Z 型穩定子量到），高 3 位是 z 的奇偶。</td></tr>
+      <tr><td>症狀 <code>sy(x,z)</code></td><td>6 位元，依序是 Z1、Z2、Z3、X1、X2、X3 的量測結果。前 3 位看 X 錯誤落在各組位元上的個數是奇是偶，後 3 位看 Z 錯誤。</td></tr>
       <tr><td>每輪紀錄 <code>h_i</code></td><td>12 位元 <code>word = v | (flags&lt;&lt;6)</code>：位元 0–5 是 6 個穩定子的量測結果，位元 6–11 是對應旗標。</td></tr>
       <tr><td>修正 <code>ec</code></td><td>14 位元：低 7 位 X、高 7 位 Z。<code>0x80000000</code> 是找不到表項的哨兵值。</td></tr>
       <tr><td>故障輸入</td><td><code>run(mode,q,a,fr,fk,fo,fp)</code>：mode 0 無錯誤、1 初始錯誤（q 位，a=1 X／2 Z／3 Y）、2 電路故障（輪 fr、穩定子 fk、操作 fo、Pauli fp）。CNOT 故障的 fp 低 2 位作用在 control、高 2 位作用在 target。</td></tr>
